@@ -1,8 +1,11 @@
-package com.fightcorona
+package com.fightcorona.main.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.fightcorona.di.Injectable
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -11,29 +14,28 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.fightcorona.R
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
+import timber.log.Timber
 
-
-class MainActivity : AppCompatActivity(), OnMapReadyCallback, HasAndroidInjector {
+class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
 
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_map, container, false)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mFusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        val map = map as SupportMapFragment
-        map.getMapAsync(this)
+        val map = childFragmentManager.findFragmentById(R.id.gmap_frag) as? SupportMapFragment
+        map?.getMapAsync(this)
     }
 
     private fun updateLocationUi() {
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, HasAndroidInjector
                 //getLocationPermission()
             }
         } catch (e: SecurityException) {
-            Log.e("Exception: %s", e.message)
+            Timber.e("Exception: %s", e.message)
         }
     }
 
@@ -62,7 +64,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, HasAndroidInjector
 
     private fun getDeviceLocation() {
         val locationResult = mFusedLocationProviderClient.lastLocation
-        locationResult.addOnSuccessListener(this) {
+        locationResult.addOnSuccessListener(requireActivity()) {
             if (it != null) {
                 //lastLocation = it
                 val currentLatLng = LatLng(it.latitude, it.longitude)
@@ -75,9 +77,5 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, HasAndroidInjector
     override fun onMapReady(map: GoogleMap) {
         mMap = map
         updateLocationUi()
-    }
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return dispatchingAndroidInjector
     }
 }

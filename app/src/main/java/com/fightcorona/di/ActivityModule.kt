@@ -1,6 +1,6 @@
 package com.fightcorona.di
 
-import com.fightcorona.MainActivity
+import com.fightcorona.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
