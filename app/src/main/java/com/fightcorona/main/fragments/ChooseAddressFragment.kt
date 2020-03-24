@@ -66,15 +66,16 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
     }
 
     private fun setupToolbar() {
-        val activity = activity as MainActivity
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.setDisplayShowTitleEnabled(false)
-        activity.supportActionBar?.setHomeAsUpIndicator(
-            ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.ic_arrow_back_white_24dp
+        with(activity as MainActivity) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setHomeAsUpIndicator(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_arrow_back_white_24dp
+                )
             )
-        )
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -88,16 +89,9 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
 
     private fun updateLocationUi() {
         try {
-            if (true) {
-                mMap.isMyLocationEnabled = true
-                mMap.uiSettings.isMyLocationButtonEnabled = true
-                getDeviceLocation()
-            } else {
-                mMap.isMyLocationEnabled = false
-                mMap.uiSettings.isMyLocationButtonEnabled = false
-                //getLocationPermissions()
-                //mLastKnownLocation = null
-            }
+            mMap.isMyLocationEnabled = true
+            mMap.uiSettings.isMyLocationButtonEnabled = true
+            getDeviceLocation()
         } catch (e: SecurityException) {
             Timber.e("Exception: %s", e.message)
         }

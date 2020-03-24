@@ -45,9 +45,10 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val activity = activity as MainActivity
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        activity.supportActionBar?.setDisplayShowTitleEnabled(true)
+        with(activity as MainActivity) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.setDisplayShowTitleEnabled(true)
+        }
         getLocationPermissions()
         mFusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -66,21 +67,10 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     }
 
     private fun updateLocationUi() {
-        if (mMap == null) {
-            return
-        }
         try {
-            if (arePermissionsGranted()) {
-                mMap.isMyLocationEnabled = true
-                mMap.uiSettings.isMyLocationButtonEnabled = true
-                getDeviceLocation()
-            } else {
-                mMap.isMyLocationEnabled = false
-                mMap.uiSettings.isMyLocationButtonEnabled = false
-                getLocationPermissions()
-                //mLastKnownLocation = null
-                //getLocationPermission()
-            }
+            mMap.isMyLocationEnabled = true
+            mMap.uiSettings.isMyLocationButtonEnabled = true
+            getDeviceLocation()
         } catch (e: SecurityException) {
             Timber.e("Exception: %s", e.message)
         }

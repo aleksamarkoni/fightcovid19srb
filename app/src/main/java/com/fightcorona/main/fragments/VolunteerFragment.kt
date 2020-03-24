@@ -38,7 +38,8 @@ class VolunteerFragment : BottomSheetDialogFragment(), Injectable {
 
     private fun setupAddVolunteerButton() {
         button_add_volunteer.setOnClickListener {
-            findNavController().popBackStack(R.id.mapFragment, false)
+
+            //findNavController().popBackStack(R.id.mapFragment, false)
         }
     }
 }

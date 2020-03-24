@@ -1,5 +1,7 @@
 package com.fightcorona.di
 
+import com.fightcorona.remote.FightCorona19RestService
+import com.fightcorona.remote.PoiRepository
 import com.google.fightcorona.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -15,6 +17,17 @@ import javax.inject.Singleton
 
 @Module
 class AppModule {
+
+    @Singleton
+    @Provides
+    internal fun providePoiRepository(restService: FightCorona19RestService): PoiRepository =
+        PoiRepository(restService)
+
+    @Singleton
+    @Provides
+    internal fun provideRestService(retrofit: Retrofit): FightCorona19RestService {
+        return retrofit.create(FightCorona19RestService::class.java)
+    }
 
     @Singleton
     @Provides
