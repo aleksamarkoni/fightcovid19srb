@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.view_models.AddVolunteerViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.fightcorona.R
+import kotlinx.android.synthetic.main.fragment_volunteer.*
 import javax.inject.Inject
 
 class VolunteerFragment : BottomSheetDialogFragment(), Injectable {
@@ -31,5 +33,12 @@ class VolunteerFragment : BottomSheetDialogFragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddVolunteerViewModel::class.java)
+        setupAddVolunteerButton()
+    }
+
+    private fun setupAddVolunteerButton() {
+        button_add_volunteer.setOnClickListener {
+            findNavController().popBackStack(R.id.mapFragment, false)
+        }
     }
 }
