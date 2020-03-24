@@ -8,11 +8,23 @@
         android:name="com.fightcorona.main.fragments.MapFragment"
         android:label="MapFragment" >
         <action
-            android:id="@+id/action_mapFragment_to_volunteerFragment"
-            app:destination="@id/volunteerFragment" />
+            android:id="@+id/action_mapFragment_to_chooseAddressFragment"
+            app:destination="@id/chooseAddressFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
     <dialog
         android:id="@+id/volunteerFragment"
         android:name="com.fightcorona.main.fragments.VolunteerFragment"
         android:label="VolunteerFragment" />
+    <fragment
+        android:id="@+id/chooseAddressFragment"
+        android:name="com.fightcorona.main.fragments.ChooseAddressFragment"
+        android:label="ChooseAddressFragment" >
+        <action
+            android:id="@+id/action_chooseAddressFragment_to_volunteerFragment"
+            app:destination="@id/volunteerFragment" />
+    </fragment>
 </navigation>

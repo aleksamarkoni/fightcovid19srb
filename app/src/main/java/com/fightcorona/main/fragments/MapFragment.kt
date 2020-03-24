@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fightcorona.di.Injectable
+import com.fightcorona.main.MainActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -44,6 +45,9 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val activity = activity as MainActivity
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        activity.supportActionBar?.setDisplayShowTitleEnabled(true)
         getLocationPermissions()
         mFusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -52,7 +56,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private fun setupAddVolunteerButton() {
         add_volunteer_button.setOnClickListener {
-            findNavController().navigate(MapFragmentDirections.actionMapFragmentToVolunteerFragment())
+            findNavController().navigate(MapFragmentDirections.actionMapFragmentToChooseAddressFragment())
         }
     }
 

@@ -1,5 +1,6 @@
 package com.fightcorona.di
 
+import com.fightcorona.main.fragments.ChooseAddressFragment
 import com.fightcorona.main.fragments.MapFragment
 import com.fightcorona.main.fragments.VolunteerFragment
 import dagger.Module
@@ -13,4 +14,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeFragmentVolunteer(): VolunteerFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeChooseAddressFragment(): ChooseAddressFragment
 }
