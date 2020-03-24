@@ -6,5 +6,13 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.fightcorona.main.fragments.MapFragment"
-        android:label="MapFragment" />
+        android:label="MapFragment" >
+        <action
+            android:id="@+id/action_mapFragment_to_volunteerFragment"
+            app:destination="@id/volunteerFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/volunteerFragment"
+        android:name="com.fightcorona.main.fragments.VolunteerFragment"
+        android:label="VolunteerFragment" />
 </navigation>

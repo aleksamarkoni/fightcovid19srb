@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.fightcorona.di.Injectable
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -25,6 +26,7 @@ import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import kotlinx.android.synthetic.main.fragment_map.*
 import timber.log.Timber
 
 class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
@@ -45,6 +47,13 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         getLocationPermissions()
         mFusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
+        setupAddVolunteerButton()
+    }
+
+    private fun setupAddVolunteerButton() {
+        add_volunteer_button.setOnClickListener {
+            findNavController().navigate(MapFragmentDirections.actionMapFragmentToVolunteerFragment())
+        }
     }
 
     fun getMapAsync() {

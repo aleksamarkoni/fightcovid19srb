@@ -6,4 +6,8 @@
     <string name="cancel_button">Cancel</string>
     <string name="add_volunteer">Add volunteer</string>
     <string name="add_people_who_needs_help">Add people who needs help</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_notes">Notes</string>
 </resources>
