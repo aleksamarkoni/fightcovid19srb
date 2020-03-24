@@ -10,4 +10,5 @@
     <string name="hint_email">Email</string>
     <string name="hint_name">Name</string>
     <string name="hint_notes">Notes</string>
+    <string name="to_add_new_volunteer_please_fill_out_the_fields_below">To add new volunteer, please fill out the fields below</string>
 </resources>

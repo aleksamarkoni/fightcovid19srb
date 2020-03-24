@@ -8,4 +8,5 @@
     <color name="textDarkDisabled">#61000000</color>
 
     <color name="transparentPrimary">#336200EE</color>
+    <color name="transparentWhite">#E6FFFFFF</color>
 </resources>
