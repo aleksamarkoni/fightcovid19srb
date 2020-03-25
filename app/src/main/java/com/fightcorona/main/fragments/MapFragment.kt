@@ -12,9 +12,12 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.MainActivity
+import com.fightcorona.main.view_models.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -29,8 +32,14 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.fragment_map.*
 import timber.log.Timber
+import javax.inject.Inject
 
 class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var viewModel: MapViewModel
 
     private lateinit var mMap: GoogleMap
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
@@ -45,14 +54,19 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        with(activity as MainActivity) {
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            supportActionBar?.setDisplayShowTitleEnabled(true)
-        }
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MapViewModel::class.java)
+        setupToolbar()
         getLocationPermissions()
         mFusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
         setupAddVolunteerButton()
+    }
+
+    private fun setupToolbar() {
+        with(activity as MainActivity) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.setDisplayShowTitleEnabled(true)
+        }
     }
 
     private fun setupAddVolunteerButton() {
@@ -80,9 +94,9 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         val locationResult = mFusedLocationProviderClient.lastLocation
         locationResult.addOnSuccessListener(requireActivity()) {
             if (it != null) {
-                //lastLocation = it
                 val currentLatLng = LatLng(it.latitude, it.longitude)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                viewModel.setLocation(it)
             }
         }
     }
@@ -91,6 +105,14 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap) {
         mMap = map
         updateLocationUi()
+        viewModel.mapMarkers.observe(this, Observer { marker ->
+            marker?.let {
+                for (item in it) {
+                    mMap.addMarker(item)
+                }
+            }
+        })
+
     }
 
     private fun getLocationPermissions() {
