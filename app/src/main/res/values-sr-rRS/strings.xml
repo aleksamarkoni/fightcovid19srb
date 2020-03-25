@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="permission_needed">Potrebna dozvola za korišćenje lokacije</string>
+    <string name="permission_dialog_desc">Kako biste koristili aplikaciju, molimo vas prihvatite neophodne permisije</string>
+    <string name="go_to_settings">Podešavanja</string>
+    <string name="cancel_button">Otkaži</string>
+    <string name="add_volunteer">Dodaj volontera</string>
+    <string name="add_people_who_needs_help">Dodaj ljude kojima je potrebna pomoć</string>
+    <string name="hint_phone">Telefon</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_name">Ime</string>
+    <string name="hint_notes">Dodatne informacije</string>
+    <string name="to_add_new_volunteer">Da biste dodali novog volontera, molimo vas da popunite polja ispod</string>
+    <string name="to_add_new_endangered">Da biste dodali novu ugroženu osobu, molimo vas da popunite polja ispod</string>
+    <string name="choose_address">Izaberi adresu</string>
+    <string name="drop_the_pin_on_your_address">Spustite pin na adresu koju želite da dodate</string>
+    <string name="cancel">Otkaži</string>
+    <string name="continue_text">Nastavi</string>
+    <string name="add_endangered">Dodaj ugroženu\nosobu</string>
+    <string name="create">Kreiraj</string>
+</resources>

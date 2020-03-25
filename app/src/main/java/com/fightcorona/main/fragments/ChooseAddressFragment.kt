@@ -88,7 +88,8 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
                 )
             )
             if (args.peopleType == PeopleType.ENDANGERED) supportActionBar?.title =
-                "Add endangered" else supportActionBar?.title = "Add volunteer"
+                getString(R.string.add_endangered) else supportActionBar?.title =
+                getString(R.string.add_volunteer)
         }
     }
 
