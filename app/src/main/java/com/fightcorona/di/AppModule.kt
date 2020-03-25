@@ -33,7 +33,7 @@ class AppModule {
     @Provides
     internal fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("BASE_URL")
+            .baseUrl("https://vino.usluge.org")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
