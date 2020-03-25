@@ -2,12 +2,58 @@ version: 2.1
 
 orbs:
  android: circleci/android@0.2.0
+ firebase-deploy: azdevs/firebase-deploy@1.0.0
 
 jobs:
-  build:
-    executor: android/android
-        
+  build_dev:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-28-alpha
+    environment:
+      JVM_OPTS: -Xmx2048m
+      GRADLE_OPTS: -Xmx1536m -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.caching=true -Dorg.gradle.configureondemand=true -Dkotlin.compiler.execution.strategy=in-process -Dkotlin.incremental=false
     steps:
       - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "mobile/build.gradle" }}
       - run:
-          command: ./gradlew build
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "mobile/build.gradle" }}
+      - run:
+          name: assembleDev
+          command: ./gradlew assemble
+      - store_artifacts:
+          path: mobile/build/outputs/apk
+          destination: apks
+  deploy_dev:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-28-alpha
+    environment:
+      _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+      FASTLANE_LANE: distribute
+    steps:
+      - run:
+          name: Echo Deploy
+          command: echo "deploying dev"
+workflows:
+  version: 2.1
+  build_all:
+    jobs:
+      - build_dev:
+          filters:
+            branches:
+              only:
+                - develop
+      - deploy_dev:
+          requires:
+            - build_dev
+          filters:
+            branches:
+              only:
+                - develop
