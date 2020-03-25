@@ -9,15 +9,16 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.fightcorona.di.Injectable
+import com.fightcorona.main.PeopleType
 import com.fightcorona.main.view_models.AddVolunteerViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.fightcorona.R
 import kotlinx.android.synthetic.main.fragment_volunteer.*
 import javax.inject.Inject
 
-class VolunteerFragment : BottomSheetDialogFragment(), Injectable {
+class AddNewPersonFragment : BottomSheetDialogFragment(), Injectable {
 
-    private val args: VolunteerFragmentArgs by navArgs()
+    private val args: AddNewPersonFragmentArgs by navArgs()
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -52,9 +53,23 @@ class VolunteerFragment : BottomSheetDialogFragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddVolunteerViewModel::class.java)
         setupAddVolunteerButton()
+        setupUI()
         email_edit_text.addTextChangedListener(watcher)
         phone_edit_text.addTextChangedListener(watcher)
         name_edit_text.addTextChangedListener(watcher)
+    }
+
+    private fun setupUI() {
+        if (args.peopleType == PeopleType.ENDANGERED) {
+            add_volunteer_title.text =
+                getString(R.string.add_endangered)
+            add_volunteer_desc.text =
+                getString(R.string.to_add_new_endangered)
+        } else {
+            add_volunteer_title.text = getString(R.string.add_volunteer)
+            add_volunteer_desc.text =
+                getString(R.string.to_add_new_volunteer)
+        }
     }
 
     private fun setupAddVolunteerButton() {

@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.MainActivity
+import com.fightcorona.main.PeopleType
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,6 +26,8 @@ import timber.log.Timber
 class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
     GoogleMap.OnCameraMoveListener,
     GoogleMap.OnCameraIdleListener {
+
+    private val args: ChooseAddressFragmentArgs by navArgs()
 
     private lateinit var mMap: GoogleMap
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
@@ -66,7 +70,8 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
             findNavController().navigate(
                 ChooseAddressFragmentDirections.actionChooseAddressFragmentToVolunteerFragment(
                     lat,
-                    lon
+                    lon,
+                    args.peopleType
                 )
             )
         }
@@ -75,13 +80,15 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
     private fun setupToolbar() {
         with(activity as MainActivity) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayShowTitleEnabled(true)
             supportActionBar?.setHomeAsUpIndicator(
                 ContextCompat.getDrawable(
                     requireContext(),
                     R.drawable.ic_arrow_back_white_24dp
                 )
             )
+            if (args.peopleType == PeopleType.ENDANGERED) supportActionBar?.title =
+                "Add endangered" else supportActionBar?.title = "Add volunteer"
         }
     }
 

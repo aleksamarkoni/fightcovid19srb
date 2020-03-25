@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.MainActivity
+import com.fightcorona.main.PeopleType
 import com.fightcorona.main.view_models.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -60,18 +61,34 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         mFusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
         setupAddVolunteerButton()
+        setupAddEndangeredButton()
     }
 
     private fun setupToolbar() {
         with(activity as MainActivity) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
             supportActionBar?.setDisplayShowTitleEnabled(true)
+            supportActionBar?.title = getString(R.string.app_name)
         }
     }
 
     private fun setupAddVolunteerButton() {
         add_volunteer_button.setOnClickListener {
-            findNavController().navigate(MapFragmentDirections.actionMapFragmentToChooseAddressFragment())
+            findNavController().navigate(
+                MapFragmentDirections.actionMapFragmentToChooseAddressFragment(
+                    PeopleType.VOLUNTEER
+                )
+            )
+        }
+    }
+
+    private fun setupAddEndangeredButton() {
+        add_endangered_people_people.setOnClickListener {
+            findNavController().navigate(
+                MapFragmentDirections.actionMapFragmentToChooseAddressFragment(
+                    PeopleType.ENDANGERED
+                )
+            )
         }
     }
 

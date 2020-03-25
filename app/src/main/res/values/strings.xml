@@ -9,9 +9,12 @@
     <string name="hint_email">Email</string>
     <string name="hint_name">Name</string>
     <string name="hint_notes">Notes</string>
-    <string name="to_add_new_volunteer_please_fill_out_the_fields_below">To add new volunteer, please fill out the fields below</string>
+    <string name="to_add_new_volunteer">To add new volunteer, please fill out the fields below</string>
+    <string name="to_add_new_endangered">To add new endangered person, please fill out the fields below</string>
     <string name="choose_address">Choose address</string>
     <string name="drop_the_pin_on_your_address">Drop the pin on your address</string>
     <string name="cancel">Cancel</string>
     <string name="continue_text">Continue</string>
+    <string name="add_endangered">Add endangered</string>
+    <string name="create">Create</string>
 </resources>

@@ -17,7 +17,7 @@
     </fragment>
     <dialog
         android:id="@+id/volunteerFragment"
-        android:name="com.fightcorona.main.fragments.VolunteerFragment"
+        android:name="com.fightcorona.main.fragments.AddNewPersonFragment"
         android:label="VolunteerFragment" >
         <argument
             android:name="latitude"
@@ -25,6 +25,9 @@
         <argument
             android:name="longitude"
             app:argType="float" />
+        <argument
+            android:name="peopleType"
+            app:argType="com.fightcorona.main.PeopleType" />
     </dialog>
     <fragment
         android:id="@+id/chooseAddressFragment"
@@ -33,5 +36,8 @@
         <action
             android:id="@+id/action_chooseAddressFragment_to_volunteerFragment"
             app:destination="@id/volunteerFragment" />
+        <argument
+            android:name="peopleType"
+            app:argType="com.fightcorona.main.PeopleType" />
     </fragment>
 </navigation>

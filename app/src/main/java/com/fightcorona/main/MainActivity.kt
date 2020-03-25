@@ -38,3 +38,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         return super.onOptionsItemSelected(item)
     }
 }
+
+enum class PeopleType {
+    VOLUNTEER,
+    ENDANGERED
+}
