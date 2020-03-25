@@ -11,6 +11,26 @@ jobs:
     environment:
       JVM_OPTS: -Xmx2048m
       GRADLE_OPTS: -Xmx1536m -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.caching=true -Dorg.gradle.configureondemand=true -Dkotlin.compiler.execution.strategy=in-process -Dkotlin.incremental=false
+    gems_key: &gems_key
+                gems-{{ checksum "Gemfile.lock" }}
+    restore_gems_cache: &restore_gems_cache
+      restore_cache:
+        key: *gems_key
+    save_gems_cache: &save_gems_cache
+      save_cache:
+        key: *gems_key
+        paths:
+          - vendor/bundle
+    bundler_install: &bundler_install
+      run:
+        name: install bundler
+        command: |
+          gem update --system
+          gem install bundler
+    ruby_dependencies: &ruby_dependencies
+      run:
+        name: Download Ruby Dependencies
+        command: bundle check || bundle install --path vendor/bundle    
     steps:
       - checkout
       - restore_cache:
@@ -37,33 +57,9 @@ jobs:
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
       FASTLANE_LANE: distribute
     steps:
-      - checkout
-      - restore_cache:
-          key: gems-{{ checksum "Gemfile.lock" }}
-      - run:
-        name: install bundler
-        command: |
-          gem update --system
-          gem install bundler
-      - restore_cache:
-          key: gems-{{ checksum "Gemfile.lock" }}
-      - run:
-        name: Download Ruby Dependencies
-        command: bundle check || bundle install --path vendor/bundle
-      - save_cache:
-        key: gems-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
-      - run:
-          name: Install firebase
-          command: curl -sL firebase.tools | bash
       - run:
           name: Echo Deploy
           command: echo "deploying dev"
-      - run: bundle -v
-      - run:
-          name: fastlane
-          command: bundle exec fastlane distributeDev
 workflows:
   version: 2.1
   build_all:
