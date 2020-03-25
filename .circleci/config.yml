@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
  android: circleci/android@0.2.0
- firebase-deploy: azdevs/firebase-deploy@1.0.0
 
 jobs:
   build_dev:
