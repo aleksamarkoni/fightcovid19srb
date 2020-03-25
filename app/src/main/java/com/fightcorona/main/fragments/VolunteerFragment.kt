@@ -1,11 +1,13 @@
 package com.fightcorona.main.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.view_models.AddVolunteerViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -15,10 +17,26 @@ import javax.inject.Inject
 
 class VolunteerFragment : BottomSheetDialogFragment(), Injectable {
 
+    private val args: VolunteerFragmentArgs by navArgs()
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: AddVolunteerViewModel
+
+    private val watcher = object : TextWatcher {
+        override fun afterTextChanged(p0: Editable?) {
+            button_add_volunteer.isEnabled = email_edit_text.text.toString().isNotEmpty() &&
+                    phone_edit_text.text.toString().isNotEmpty() &&
+                    name_edit_text.text.toString().isNotEmpty()
+        }
+
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,12 +52,14 @@ class VolunteerFragment : BottomSheetDialogFragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddVolunteerViewModel::class.java)
         setupAddVolunteerButton()
+        email_edit_text.addTextChangedListener(watcher)
+        phone_edit_text.addTextChangedListener(watcher)
+        name_edit_text.addTextChangedListener(watcher)
     }
 
     private fun setupAddVolunteerButton() {
         button_add_volunteer.setOnClickListener {
-
-            //findNavController().popBackStack(R.id.mapFragment, false)
+            viewModel.addVolunteer(args.latitude, args.longitude)
         }
     }
 }

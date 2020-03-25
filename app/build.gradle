@@ -42,10 +42,12 @@ android {
             resValue "string", "app_name", "FightCovid Dev"
             versionNameSuffix "-dev"
             applicationIdSuffix ".dev"
+            buildConfigField 'String', 'BASE_URL', '"https://vino.usluge.org/"'
         }
         production {
             dimension "version"
             resValue "string", "app_name", "FightCovid"
+            buildConfigField 'String', 'BASE_URL', '"https://vino.usluge.org/"'
         }
     }
 

@@ -84,3 +84,5 @@ workflows:
             branches:
               only:
                 - develop
+            tags:
+              only: /^v*/

@@ -18,7 +18,14 @@
     <dialog
         android:id="@+id/volunteerFragment"
         android:name="com.fightcorona.main.fragments.VolunteerFragment"
-        android:label="VolunteerFragment" />
+        android:label="VolunteerFragment" >
+        <argument
+            android:name="latitude"
+            app:argType="float" />
+        <argument
+            android:name="longitude"
+            app:argType="float" />
+    </dialog>
     <fragment
         android:id="@+id/chooseAddressFragment"
         android:name="com.fightcorona.main.fragments.ChooseAddressFragment"

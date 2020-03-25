@@ -3,6 +3,7 @@ package com.fightcorona.di
 import com.fightcorona.remote.FightCorona19RestService
 import com.fightcorona.remote.PoiRepository
 import com.google.fightcorona.BuildConfig
+import com.google.fightcorona.BuildConfig.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -33,7 +34,7 @@ class AppModule {
     @Provides
     internal fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://vino.usluge.org")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()

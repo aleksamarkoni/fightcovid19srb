@@ -27,6 +27,8 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
 
     private lateinit var mMap: GoogleMap
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+    private var lat = -1f
+    private var lon = -1f
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,7 +63,12 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
 
     private fun setupContinueButton() {
         continue_button_fragment_choose_address.setOnClickListener {
-            findNavController().navigate(ChooseAddressFragmentDirections.actionChooseAddressFragmentToVolunteerFragment())
+            findNavController().navigate(
+                ChooseAddressFragmentDirections.actionChooseAddressFragmentToVolunteerFragment(
+                    lat,
+                    lon
+                )
+            )
         }
     }
 
@@ -118,6 +125,8 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
         val markerOptions = MarkerOptions().position(mMap.cameraPosition.target)
             .draggable(true)
         Timber.d("Marker droped on ${mMap.cameraPosition.target}")
+        lat = mMap.cameraPosition.target.latitude.toFloat()
+        lon = mMap.cameraPosition.target.longitude.toFloat()
         mMap.addMarker(markerOptions)
 
     }
