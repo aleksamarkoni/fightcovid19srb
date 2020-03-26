@@ -13,16 +13,12 @@ class MapViewModel @Inject constructor(private val poiRepo: PoiRepository) : Vie
 
     private val currentLocation = MutableLiveData<Location>()
 
-    val mapMarkers: LiveData<List<MarkerOptions>> =
+    val mapMarkers: LiveData<HashMap<MarkerOptions, Int>> =
         Transformations.switchMap(currentLocation) { location ->
             location?.let {
                 poiRepo.fetchMarkers(it)
             }
         }
-
-    private fun prepareData(it: Location) {
-
-    }
 
     fun setLocation(it: Location) {
         currentLocation.value = it

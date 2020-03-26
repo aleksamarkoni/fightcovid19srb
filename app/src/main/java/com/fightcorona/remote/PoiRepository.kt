@@ -1,7 +1,6 @@
 package com.fightcorona.remote
 
 import android.location.Location
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -14,33 +13,30 @@ class PoiRepository(
         val response = fightCorona19Service.createPointOfInterest(latitude, longitude)
     }
 
-    fun fetchMarkers(location: Location): LiveData<List<MarkerOptions>> {
+    fun fetchMarkers(location: Location): MutableLiveData<HashMap<MarkerOptions, Int>> {
         return createMockMarkers(location)
     }
 
-    private fun createMockMarkers(location: Location): LiveData<List<MarkerOptions>> {
-        val liveData = MutableLiveData<List<MarkerOptions>>()
-
-        val list = mutableListOf<MarkerOptions>()
+    private fun createMockMarkers(location: Location): MutableLiveData<HashMap<MarkerOptions, Int>> {
+        val liveDataHashMap = MutableLiveData<HashMap<MarkerOptions, Int>>()
+        val hashMap = HashMap<MarkerOptions, Int>()
         var minus = 0.010f
         val colorList = listOf(
-            BitmapDescriptorFactory.HUE_AZURE,
-            BitmapDescriptorFactory.HUE_BLUE,
-            BitmapDescriptorFactory.HUE_CYAN,
-            BitmapDescriptorFactory.HUE_RED,
-            BitmapDescriptorFactory.HUE_ROSE
+            BitmapDescriptorFactory.HUE_YELLOW,
+            BitmapDescriptorFactory.HUE_GREEN,
+            BitmapDescriptorFactory.HUE_RED
         )
 
         for (i in 0 until 10) {
             val latLng = LatLng(location.latitude - minus, location.longitude + minus)
-            list.add(
-                MarkerOptions().position(latLng)
-                    .icon(BitmapDescriptorFactory.defaultMarker(colorList[(0..4).random()]))
-                    .draggable(true)
-            )
+            hashMap[MarkerOptions().position(latLng)
+                .icon(BitmapDescriptorFactory.defaultMarker(colorList[(0..2).random()]))
+                .title("Baba i deda")
+                .snippet("TEstiramo da vidimo sta radi ovo cudo")
+                .draggable(true)] = (0..20).random()
             minus -= 0.010f
         }
-        liveData.value = list
-        return liveData
+        liveDataHashMap.value = hashMap
+        return liveDataHashMap
     }
 }

@@ -26,6 +26,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.fightcorona.R
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -44,6 +46,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+    private var markerHashMap = HashMap<Marker, Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -122,14 +125,25 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap) {
         mMap = map
         updateLocationUi()
+        mMap.setOnInfoWindowClickListener { marker ->
+            getMarkerDetail(marker)
+        }
         viewModel.mapMarkers.observe(this, Observer { marker ->
-            marker?.let {
-                for (item in it) {
-                    mMap.addMarker(item)
-                }
+            marker?.let { hashMap ->
+                setupMarkers(hashMap)
             }
         })
+    }
 
+    private fun getMarkerDetail(marker: Marker?) {
+        Timber.d("Id of clicked marker is ${markerHashMap[marker]}")
+    }
+
+    private fun setupMarkers(hashMap: HashMap<MarkerOptions, Int>) {
+        for (item in hashMap.keys) {
+            val mapMarker = mMap.addMarker(item)
+            markerHashMap[mapMarker] = hashMap[item]!!
+        }
     }
 
     private fun getLocationPermissions() {
