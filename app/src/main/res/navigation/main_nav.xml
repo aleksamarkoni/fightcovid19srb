@@ -14,6 +14,9 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_mapFragment_to_endangeredDetailFragment2"
+            app:destination="@id/endangeredDetailFragment2" />
     </fragment>
     <dialog
         android:id="@+id/volunteerFragment"
@@ -39,5 +42,13 @@
         <argument
             android:name="peopleType"
             app:argType="com.fightcorona.main.PeopleType" />
+    </fragment>
+    <fragment
+        android:id="@+id/endangeredDetailFragment2"
+        android:name="com.fightcorona.main.fragments.EndangeredDetailFragment"
+        android:label="EndangeredDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 </navigation>

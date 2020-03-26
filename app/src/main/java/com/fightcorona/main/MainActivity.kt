@@ -2,6 +2,7 @@ package com.fightcorona.main
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.fightcorona.R
@@ -36,6 +37,11 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.person_detail_menu, menu)
+        return false
     }
 }
 

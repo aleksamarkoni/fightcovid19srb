@@ -17,4 +17,7 @@
     <string name="continue_text">Continue</string>
     <string name="add_endangered">Add endangered</string>
     <string name="create">Create</string>
+    <string name="visited">Visited</string>
+    <string name="visit_detail">Visit details</string>
+    <string name="remove">Remove</string>
 </resources>

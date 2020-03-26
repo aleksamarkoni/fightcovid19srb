@@ -124,6 +124,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         mMap = map
+        mMap.uiSettings.isMapToolbarEnabled = false
         updateLocationUi()
         mMap.setOnInfoWindowClickListener { marker ->
             getMarkerDetail(marker)
@@ -137,6 +138,13 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private fun getMarkerDetail(marker: Marker?) {
         Timber.d("Id of clicked marker is ${markerHashMap[marker]}")
+        markerHashMap[marker]?.let { id ->
+            findNavController().navigate(
+                MapFragmentDirections.actionMapFragmentToEndangeredDetailFragment2(
+                    id
+                )
+            )
+        }
     }
 
     private fun setupMarkers(hashMap: HashMap<MarkerOptions, Int>) {

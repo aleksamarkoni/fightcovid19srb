@@ -13,7 +13,7 @@ import com.fightcorona.main.PeopleType
 import com.fightcorona.main.view_models.AddVolunteerViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.fightcorona.R
-import kotlinx.android.synthetic.main.fragment_volunteer.*
+import kotlinx.android.synthetic.main.fragment_add_person.*
 import javax.inject.Inject
 
 class AddNewPersonFragment : BottomSheetDialogFragment(), Injectable {
@@ -44,7 +44,7 @@ class AddNewPersonFragment : BottomSheetDialogFragment(), Injectable {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_volunteer, container, false)
+        return inflater.inflate(R.layout.fragment_add_person, container, false)
     }
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme

@@ -18,4 +18,6 @@
     <string name="continue_text">Nastavi</string>
     <string name="add_endangered">Dodaj ugroženu\nosobu</string>
     <string name="create">Kreiraj</string>
+    <string name="visit_detail">Detalji o poseti</string>
+    <string name="remove">Ukloni</string>
 </resources>
