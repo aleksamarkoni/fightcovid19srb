@@ -24,4 +24,5 @@
     <string name="required">Required:</string>
     <string name="volunteer_who_visited_this_person_last_wrote">Feedback from last volunteer who visited this person:</string>
     <string name="view_all_feedback">View all feedback</string>
+    <string name="address">Address</string>
 </resources>

@@ -74,7 +74,11 @@ class AddNewPersonFragment : BottomSheetDialogFragment(), Injectable {
 
     private fun setupAddVolunteerButton() {
         button_add_volunteer.setOnClickListener {
-            viewModel.addVolunteer(args.latitude, args.longitude)
+            viewModel.addNewPerson(
+                args.latitude, args.longitude, email_edit_text.text.toString(),
+                phone_edit_text.text.toString(), name_edit_text.text.toString(),
+                args.peopleType, notes_edit_text.text.toString()
+            )
         }
     }
 }

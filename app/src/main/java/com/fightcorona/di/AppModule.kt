@@ -2,6 +2,7 @@ package com.fightcorona.di
 
 import com.fightcorona.remote.FightCorona19RestService
 import com.fightcorona.remote.PoiRepository
+import com.fightcorona.remote.RetrofitUtils
 import com.google.fightcorona.BuildConfig
 import com.google.fightcorona.BuildConfig.BASE_URL
 import com.google.gson.Gson
@@ -21,8 +22,11 @@ class AppModule {
 
     @Singleton
     @Provides
-    internal fun providePoiRepository(restService: FightCorona19RestService): PoiRepository =
-        PoiRepository(restService)
+    internal fun providePoiRepository(
+        restService: FightCorona19RestService,
+        retrofitUtils: RetrofitUtils
+    ): PoiRepository =
+        PoiRepository(restService, retrofitUtils)
 
     @Singleton
     @Provides
@@ -68,5 +72,11 @@ class AppModule {
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
         return httpClientBuilder.build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofitUtils(gson: Gson): RetrofitUtils {
+        return RetrofitUtils(gson)
     }
 }

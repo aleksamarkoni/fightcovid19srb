@@ -1,14 +1,21 @@
 package com.fightcorona.remote
 
 import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface FightCorona19RestService {
 
     @POST("poi")
     suspend fun createPointOfInterest(
-        @Query("lat") lat: Float,
-        @Query("lon") lon: Float
+        @Body poi: Poi
     ): Response<Void>
+
+    @GET("poi/{latitude}/{longitude}")
+    suspend fun getPoi(
+        @Path("latitude") lat: Float,
+        @Path("longitude") lon: Float
+    ): Response<List<MapMarker>>
 }

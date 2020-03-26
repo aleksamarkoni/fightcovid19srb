@@ -117,6 +117,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
                 val currentLatLng = LatLng(it.latitude, it.longitude)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
                 viewModel.setLocation(it)
+                viewModel.getPoi(it.latitude.toFloat(), it.longitude.toFloat())
             }
         }
     }

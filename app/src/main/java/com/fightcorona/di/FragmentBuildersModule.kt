@@ -1,9 +1,6 @@
 package com.fightcorona.di
 
-import com.fightcorona.main.fragments.AddNewPersonFragment
-import com.fightcorona.main.fragments.ChooseAddressFragment
-import com.fightcorona.main.fragments.EndangeredDetailFragment
-import com.fightcorona.main.fragments.MapFragment
+import com.fightcorona.main.fragments.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -21,4 +18,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeEndangeredDetailFragment(): EndangeredDetailFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeAllFeedbacksFragment(): AllFeedbacksFragment
 }

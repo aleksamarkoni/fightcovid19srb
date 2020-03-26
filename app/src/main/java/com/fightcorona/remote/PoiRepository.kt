@@ -1,42 +1,66 @@
 package com.fightcorona.remote
 
-import android.location.Location
-import androidx.lifecycle.MutableLiveData
+import com.fightcorona.main.PeopleType
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class PoiRepository(
-    private val fightCorona19Service: FightCorona19RestService
+    private val fightCorona19Service: FightCorona19RestService,
+    private val retrofitUtils: RetrofitUtils
 ) {
-    suspend fun createPointOfInterest(latitude: Float, longitude: Float) {
-        val response = fightCorona19Service.createPointOfInterest(latitude, longitude)
+    suspend fun createPointOfInterest(
+        latitude: Float,
+        longitude: Float,
+        email: String,
+        phone: String,
+        name: String,
+        peopleType: PeopleType,
+        note: String?
+    ) {
+        val poi = Poi(
+            peopleType.toString().toLowerCase(),
+            latitude,
+            longitude,
+            "cara lazara",
+            4,
+            "1A",
+            phone,
+            note
+        )
+        val response = fightCorona19Service.createPointOfInterest(poi)
     }
 
-    fun fetchMarkers(location: Location): MutableLiveData<HashMap<MarkerOptions, Int>> {
-        return createMockMarkers(location)
-    }
+    suspend fun getPoi(latitude: Float, longitude: Float): HashMap<MarkerOptions, Int>? =
+        withContext(Dispatchers.IO) {
+            val response = fightCorona19Service.getPoi(latitude, longitude)
+            val result = retrofitUtils.handleResponse(response)
+            return@withContext preparePoiData((result))
+        }
 
-    private fun createMockMarkers(location: Location): MutableLiveData<HashMap<MarkerOptions, Int>> {
-        val liveDataHashMap = MutableLiveData<HashMap<MarkerOptions, Int>>()
+    private fun preparePoiData(list: List<MapMarker>?): HashMap<MarkerOptions, Int> {
         val hashMap = HashMap<MarkerOptions, Int>()
-        var minus = 0.010f
         val colorList = listOf(
             BitmapDescriptorFactory.HUE_YELLOW,
             BitmapDescriptorFactory.HUE_GREEN,
             BitmapDescriptorFactory.HUE_RED
         )
-
-        for (i in 0 until 10) {
-            val latLng = LatLng(location.latitude - minus, location.longitude + minus)
-            hashMap[MarkerOptions().position(latLng)
-                .icon(BitmapDescriptorFactory.defaultMarker(colorList[(0..2).random()]))
-                .title("Baba i deda")
-                .snippet("TEstiramo da vidimo sta radi ovo cudo")
-                .draggable(true)] = (0..20).random()
-            minus -= 0.010f
+        list?.let {
+            for (item in list) {
+                val latLng = LatLng(item.latitude.toDouble(), item.longitude.toDouble())
+                hashMap[MarkerOptions().position(latLng)
+                    .icon(
+                        BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_GREEN
+                        )
+                    )
+                    .title("Marker with id ${item.id}")
+                    .snippet("Click for more details")
+                    .draggable(true)] = item.id
+            }
         }
-        liveDataHashMap.value = hashMap
-        return liveDataHashMap
+        return hashMap
     }
 }

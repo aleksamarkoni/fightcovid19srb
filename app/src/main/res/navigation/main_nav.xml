@@ -56,5 +56,12 @@
         <argument
             android:name="longitude"
             app:argType="float" />
+        <action
+            android:id="@+id/action_endangeredDetailFragment2_to_allFeedbacksFragment"
+            app:destination="@id/allFeedbacksFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/allFeedbacksFragment"
+        android:name="com.fightcorona.main.fragments.AllFeedbacksFragment"
+        android:label="AllFeedbacksFragment" />
 </navigation>

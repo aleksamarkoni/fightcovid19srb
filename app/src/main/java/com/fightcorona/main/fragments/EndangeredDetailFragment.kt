@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.MainActivity
@@ -45,6 +46,13 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
         setupToolbar()
         button_person_visited.text = "Visited ${args.id}"
         getMapAsync()
+        setupViewAllFeedbacksButton()
+    }
+
+    private fun setupViewAllFeedbacksButton() {
+        view_all_feedbacks.setOnClickListener {
+            findNavController().navigate(EndangeredDetailFragmentDirections.actionEndangeredDetailFragment2ToAllFeedbacksFragment())
+        }
     }
 
     private fun getMapAsync() {

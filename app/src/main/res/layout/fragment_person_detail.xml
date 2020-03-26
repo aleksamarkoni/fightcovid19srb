@@ -87,6 +87,7 @@
         tools:text="Baba i deda su u redu, sve cool. Potrebno im je to to to to i to" />
 
     <TextView
+        android:id="@+id/view_all_feedbacks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
