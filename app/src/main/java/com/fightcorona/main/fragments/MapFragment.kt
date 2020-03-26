@@ -136,12 +136,14 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         })
     }
 
-    private fun getMarkerDetail(marker: Marker?) {
+    private fun getMarkerDetail(marker: Marker) {
         Timber.d("Id of clicked marker is ${markerHashMap[marker]}")
         markerHashMap[marker]?.let { id ->
             findNavController().navigate(
                 MapFragmentDirections.actionMapFragmentToEndangeredDetailFragment2(
-                    id
+                    id,
+                    marker.position.latitude.toFloat(),
+                    marker.position.longitude.toFloat()
                 )
             )
         }

@@ -9,4 +9,5 @@
 
     <color name="transparentPrimary">#336200EE</color>
     <color name="transparentWhite">#E6FFFFFF</color>
+    <color name="red">#FF0000</color>
 </resources>

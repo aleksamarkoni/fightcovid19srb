@@ -20,4 +20,8 @@
     <string name="visited">Visited</string>
     <string name="visit_detail">Visit details</string>
     <string name="remove">Remove</string>
+    <string name="last_visited">Last visited:</string>
+    <string name="required">Required:</string>
+    <string name="volunteer_who_visited_this_person_last_wrote">Feedback from last volunteer who visited this person:</string>
+    <string name="view_all_feedback">View all feedback</string>
 </resources>

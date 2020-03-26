@@ -63,6 +63,12 @@
         <item name="android:layout_marginEnd">16dp</item>
     </style>
 
+    <style name="DescriptionText" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/textDarkDisabled</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="TitleText" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="fontFamily">@font/roboto_bold</item>
