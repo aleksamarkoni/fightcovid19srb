@@ -44,6 +44,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "113199709004-b69sjrsdf3o12uubf3bp9ce8hmskfq3d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.google.fightcorona.dev",
+            "certificate_hash": "b787d8e76fe3f35fc2ef53a9fede334031645010"
+          }
+        },
+        {
           "client_id": "113199709004-lnm748nm64fmmu7en2trbhavi9iuvqm6.apps.googleusercontent.com",
           "client_type": 3
         }

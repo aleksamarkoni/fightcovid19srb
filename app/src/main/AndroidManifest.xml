@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.fightcorona.main.MainActivity">
+        <activity android:name="com.fightcorona.main.MainActivity" >
+
+        </activity>
+        <activity android:name="com.fightcorona.signin.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
