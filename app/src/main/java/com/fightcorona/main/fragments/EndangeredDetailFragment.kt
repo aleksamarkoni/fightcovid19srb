@@ -11,10 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.MainActivity
+import com.fightcorona.main.view_models.PersonDetailViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -25,9 +27,15 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.fightcorona.R
 import kotlinx.android.synthetic.main.fragment_person_detail.*
+import javax.inject.Inject
 
 
 class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var viewModel: PersonDetailViewModel
 
     private val args: EndangeredDetailFragmentArgs by navArgs()
 
@@ -43,10 +51,15 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(PersonDetailViewModel::class.java)
         setupToolbar()
-        button_person_visited.text = "Visited ${args.id}"
         getMapAsync()
         setupViewAllFeedbacksButton()
+        fetchPoiDetail()
+    }
+
+    private fun fetchPoiDetail() {
+        viewModel.getPoiDetail(args.id)
     }
 
     private fun setupViewAllFeedbacksButton() {
@@ -80,6 +93,7 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
         val latLng = LatLng(args.latitude.toDouble(), args.longitude.toDouble())
         mMap = map
         mMap.uiSettings.isMapToolbarEnabled = false
+        mMap.uiSettings.isZoomGesturesEnabled = false
         mMap.uiSettings.isScrollGesturesEnabled = false
         mMap.addMarker(
             MarkerOptions().position(
@@ -88,9 +102,9 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
                 vectorToBitmap(
                     R.drawable.ic_home_red_24dp
                 )
-            )
+            ).draggable(false)
         )
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f))
     }
 
     private fun vectorToBitmap(@DrawableRes id: Int): BitmapDescriptor? {

@@ -2,7 +2,6 @@ package com.fightcorona.main.fragments
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -10,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -116,7 +114,6 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
             if (it != null) {
                 val currentLatLng = LatLng(it.latitude, it.longitude)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
-                viewModel.setLocation(it)
                 viewModel.getPoi(it.latitude.toFloat(), it.longitude.toFloat())
             }
         }
@@ -201,16 +198,5 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         }
         val dialog = builder.create()
         dialog.show()
-    }
-
-    private fun arePermissionsGranted(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
     }
 }

@@ -33,6 +33,13 @@ class PoiRepository(
         val response = fightCorona19Service.createPointOfInterest(poi)
     }
 
+    suspend fun getPoiDetail(id: Int) =
+        withContext(Dispatchers.IO) {
+            val response = fightCorona19Service.getPoiDetail(id)
+            val result = retrofitUtils.handleResponse(response)
+            return@withContext result
+        }
+
     suspend fun getPoi(latitude: Float, longitude: Float): HashMap<MarkerOptions, Int>? =
         withContext(Dispatchers.IO) {
             val response = fightCorona19Service.getPoi(latitude, longitude)

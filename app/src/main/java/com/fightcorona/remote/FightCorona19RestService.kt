@@ -18,4 +18,9 @@ interface FightCorona19RestService {
         @Path("latitude") lat: Float,
         @Path("longitude") lon: Float
     ): Response<List<MapMarker>>
+
+    @GET("poi/{id}")
+    suspend fun getPoiDetail(
+        @Path("id") id: Int
+    ): Response<PoiDetail>
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fightcorona.main.view_models.AddVolunteerViewModel
 import com.fightcorona.main.view_models.MapViewModel
+import com.fightcorona.main.view_models.PersonDetailViewModel
 import com.fightcorona.util.ViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -24,4 +25,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MapViewModel::class)
     abstract fun mapViewModel(mapViewModel: MapViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PersonDetailViewModel::class)
+    abstract fun personDetailViewModel(personDetailViewModel: PersonDetailViewModel): ViewModel
 }
