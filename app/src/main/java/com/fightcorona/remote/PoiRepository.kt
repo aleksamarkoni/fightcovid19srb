@@ -6,6 +6,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
+import kotlin.collections.HashMap
 
 class PoiRepository(
     private val fightCorona19Service: FightCorona19RestService,
@@ -14,30 +16,33 @@ class PoiRepository(
     suspend fun createPointOfInterest(
         latitude: Float,
         longitude: Float,
-        email: String,
-        phone: String,
+        email: String?,
+        phone: String?,
         name: String,
         peopleType: PeopleType,
-        note: String?
-    ) {
+        note: String?,
+        address: String,
+        apartment: String,
+        floor: String?
+    ) = withContext(Dispatchers.IO) {
         val poi = Poi(
             peopleType.toString().toLowerCase(),
             latitude,
             longitude,
-            "cara lazara",
-            4,
-            "1A",
+            address,
+            floor?.toInt(),
+            apartment,
             phone,
             note
         )
         val response = fightCorona19Service.createPointOfInterest(poi)
+        return@withContext response.isSuccessful
     }
 
     suspend fun getPoiDetail(id: Int) =
         withContext(Dispatchers.IO) {
             val response = fightCorona19Service.getPoiDetail(id)
-            val result = retrofitUtils.handleResponse(response)
-            return@withContext result
+            return@withContext retrofitUtils.handleResponse(response)
         }
 
     suspend fun getPoi(latitude: Float, longitude: Float): HashMap<MarkerOptions, Int>? =
@@ -59,11 +64,14 @@ class PoiRepository(
                 val latLng = LatLng(item.latitude.toDouble(), item.longitude.toDouble())
                 hashMap[MarkerOptions().position(latLng)
                     .icon(
-                        BitmapDescriptorFactory.defaultMarker(
-                            BitmapDescriptorFactory.HUE_GREEN
+                        if (item.type == PeopleType.ENDANGERED.name.toLowerCase(Locale.getDefault()))
+                            BitmapDescriptorFactory.defaultMarker(
+                                BitmapDescriptorFactory.HUE_GREEN
+                            ) else BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_BLUE
                         )
                     )
-                    .title("Marker with id ${item.id}")
+                    .title(if (item.type == PeopleType.ENDANGERED.name.toLowerCase(Locale.getDefault())) "Endangered person" else "Volunteer")
                     .snippet("Click for more details")
                     .draggable(true)] = item.id
             }

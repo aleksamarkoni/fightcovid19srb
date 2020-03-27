@@ -6,14 +6,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.PeopleType
-import com.fightcorona.main.view_models.AddVolunteerViewModel
+import com.fightcorona.main.view_models.AddPersonViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.fightcorona.R
 import kotlinx.android.synthetic.main.fragment_add_person.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class AddNewPersonFragment : BottomSheetDialogFragment(), Injectable {
@@ -23,12 +26,12 @@ class AddNewPersonFragment : BottomSheetDialogFragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: AddVolunteerViewModel
+    private lateinit var viewModel: AddPersonViewModel
 
     private val watcher = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
-            button_add_volunteer.isEnabled = email_edit_text.text.toString().isNotEmpty() &&
-                    phone_edit_text.text.toString().isNotEmpty() &&
+            button_add_volunteer.isEnabled = address_edit_text.text.toString().isNotEmpty() &&
+                    apartment_edit_text.text.toString().isNotEmpty() &&
                     name_edit_text.text.toString().isNotEmpty()
         }
 
@@ -51,12 +54,30 @@ class AddNewPersonFragment : BottomSheetDialogFragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(AddVolunteerViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(AddPersonViewModel::class.java)
         setupAddVolunteerButton()
         setupUI()
-        email_edit_text.addTextChangedListener(watcher)
-        phone_edit_text.addTextChangedListener(watcher)
+        apartment_edit_text.addTextChangedListener(watcher)
+        address_edit_text.addTextChangedListener(watcher)
         name_edit_text.addTextChangedListener(watcher)
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
+                button_add_volunteer.visibility = View.INVISIBLE
+                create_person_progress.show()
+            } else {
+                create_person_progress.hide()
+                button_add_volunteer.visibility = View.VISIBLE
+            }
+        })
+
+        viewModel.poiCreated.observe(viewLifecycleOwner, Observer { created ->
+            if (created) {
+                findNavController().popBackStack(R.id.mapFragment, false)
+            } else {
+                Timber.e("Error")
+            }
+        })
     }
 
     private fun setupUI() {
@@ -75,9 +96,16 @@ class AddNewPersonFragment : BottomSheetDialogFragment(), Injectable {
     private fun setupAddVolunteerButton() {
         button_add_volunteer.setOnClickListener {
             viewModel.addNewPerson(
-                args.latitude, args.longitude, email_edit_text.text.toString(),
-                phone_edit_text.text.toString(), name_edit_text.text.toString(),
-                args.peopleType, notes_edit_text.text.toString()
+                args.latitude,
+                args.longitude,
+                email_edit_text.text.toString(),
+                phone_edit_text.text.toString(),
+                name_edit_text.text.toString(),
+                args.peopleType,
+                notes_edit_text.text.toString(),
+                apartment_edit_text.text.toString(),
+                address_edit_text.text.toString(),
+                floor_edit_text.text.toString()
             )
         }
     }

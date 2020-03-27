@@ -2,7 +2,7 @@ package com.fightcorona.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.fightcorona.main.view_models.AddVolunteerViewModel
+import com.fightcorona.main.view_models.AddPersonViewModel
 import com.fightcorona.main.view_models.MapViewModel
 import com.fightcorona.main.view_models.PersonDetailViewModel
 import com.fightcorona.util.ViewModelFactory
@@ -18,8 +18,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AddVolunteerViewModel::class)
-    abstract fun addVolunteerViewModel(addVolunteerViewModel: AddVolunteerViewModel): ViewModel
+    @ViewModelKey(AddPersonViewModel::class)
+    abstract fun addVolunteerViewModel(addPersonViewModel: AddPersonViewModel): ViewModel
 
     @Binds
     @IntoMap

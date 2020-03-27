@@ -17,7 +17,7 @@ abstract class FragmentBuildersModule {
     internal abstract fun contributeChooseAddressFragment(): ChooseAddressFragment
 
     @ContributesAndroidInjector
-    internal abstract fun contributeEndangeredDetailFragment(): EndangeredDetailFragment
+    internal abstract fun contributeEndangeredDetailFragment(): DetailFragment
 
     @ContributesAndroidInjector
     internal abstract fun contributeAllFeedbacksFragment(): AllFeedbacksFragment

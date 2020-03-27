@@ -56,7 +56,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_text_layout"
+            android:id="@+id/address_text_layout"
             style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,12 +66,50 @@
             app:layout_constraintTop_toBottomOf="@id/name_text_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_edit_text"
+                android:id="@+id/address_edit_text"
                 style="@style/CustomEditTextLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress" />
+                android:hint="@string/address"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/apartment_text_layout"
+            style="@style/CustomTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/floor_text_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address_text_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/apartment_edit_text"
+                style="@style/CustomEditTextLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/apartment"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/floor_text_layout"
+            style="@style/CustomTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/apartment_text_layout"
+            app:layout_constraintTop_toBottomOf="@id/address_text_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/floor_edit_text"
+                style="@style/CustomEditTextLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/floor"
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,7 +121,7 @@
             app:hintTextAppearance="@style/HintAppearance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email_text_layout">
+            app:layout_constraintTop_toBottomOf="@id/apartment_text_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_edit_text"
@@ -96,7 +134,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/address_text_layout"
+            android:id="@+id/email_text_layout"
             style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,12 +144,12 @@
             app:layout_constraintTop_toBottomOf="@id/phone_text_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/address_edit_text"
+                android:id="@+id/email_edit_text"
                 style="@style/CustomEditTextLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/address"
-                android:inputType="phone" />
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,7 +165,7 @@
             app:hintTextAppearance="@style/HintAppearance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/address_text_layout">
+            app:layout_constraintTop_toBottomOf="@id/email_text_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/notes_edit_text"
@@ -155,6 +193,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/notes_text_layout" />
 
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/create_person_progress"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/button_add_volunteer"
+            app:layout_constraintEnd_toEndOf="@id/button_add_volunteer"
+            app:layout_constraintStart_toStartOf="@id/button_add_volunteer"
+            app:layout_constraintTop_toTopOf="@id/button_add_volunteer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

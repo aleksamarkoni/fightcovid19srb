@@ -8,7 +8,7 @@
     <string name="add_people_who_needs_help">Dodaj ljude kojima je potrebna pomoć</string>
     <string name="hint_phone">Telefon</string>
     <string name="hint_email">Email</string>
-    <string name="hint_name">Ime</string>
+    <string name="hint_name">Ime*</string>
     <string name="hint_notes">Dodatne informacije</string>
     <string name="to_add_new_volunteer">Da biste dodali novog volontera, molimo vas da popunite polja ispod</string>
     <string name="to_add_new_endangered">Da biste dodali novu ugroženu osobu, molimo vas da popunite polja ispod</string>
@@ -18,6 +18,10 @@
     <string name="continue_text">Nastavi</string>
     <string name="add_endangered">Dodaj ugroženu\nosobu</string>
     <string name="create">Kreiraj</string>
-    <string name="visit_detail">Detalji o poseti</string>
+    <string name="visit_detail">Detalji</string>
     <string name="remove">Ukloni</string>
+    <string name="visited">Posetio</string>
+    <string name="address">Adresa*</string>
+    <string name="apartment">Broj*</string>
+    <string name="floor">Sprat</string>
 </resources>

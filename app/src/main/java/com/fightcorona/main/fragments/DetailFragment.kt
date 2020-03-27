@@ -11,12 +11,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.MainActivity
 import com.fightcorona.main.view_models.PersonDetailViewModel
+import com.fightcorona.remote.PoiDetail
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -30,14 +32,14 @@ import kotlinx.android.synthetic.main.fragment_person_detail.*
 import javax.inject.Inject
 
 
-class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
+class DetailFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: PersonDetailViewModel
 
-    private val args: EndangeredDetailFragmentArgs by navArgs()
+    private val args: DetailFragmentArgs by navArgs()
 
     private lateinit var mMap: GoogleMap
 
@@ -56,6 +58,18 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
         getMapAsync()
         setupViewAllFeedbacksButton()
         fetchPoiDetail()
+
+        viewModel.poiDetail.observe(viewLifecycleOwner, Observer { poiDetail ->
+            poiDetail?.let {
+                setupUi(poiDetail)
+            }
+        })
+    }
+
+    private fun setupUi(poiDetail: PoiDetail) {
+        notes_value.text = poiDetail.note
+        address_value.text =
+            getString(R.string.format_address, poiDetail.address, poiDetail.apartment)
     }
 
     private fun fetchPoiDetail() {
@@ -64,7 +78,7 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private fun setupViewAllFeedbacksButton() {
         view_all_feedbacks.setOnClickListener {
-            findNavController().navigate(EndangeredDetailFragmentDirections.actionEndangeredDetailFragment2ToAllFeedbacksFragment())
+            findNavController().navigate(DetailFragmentDirections.actionEndangeredDetailFragment2ToAllFeedbacksFragment())
         }
     }
 
