@@ -45,7 +45,7 @@ platform :android do
            firebase_app_distribution(
                app: "1:113199709004:android:58d2fad012ebcde18cede9",
                groups: "covid",
-               release_notes: "Various bug fixes and improvements",
+               release_notes: "Add poi creation, fetching details about poi. Various bug fixes",
                firebase_cli_token: "1//09u5biC_uUnxrCgYIARAAGAkSNwF-L9IrowP9WaSV5LZk3ax9bO6J5Vdm_cmk7e0bD_OHqnvtmV-V5ZxrHdDbeErjTDaJ-7p3PJU"
            )
      end
