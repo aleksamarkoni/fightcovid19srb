@@ -30,4 +30,8 @@
     <string name="notes">Notes:</string>
     <string name="address_label">Address:</string>
     <string name="format_address">%1s/%1s</string>
+    <string name="visit_details">Visit details</string>
+    <string name="add_visit">Add visit</string>
+    <string name="add_visit_for_this_person">Add visit for this person</string>
+    <string name="please_send_us_your_feedback_if_you_ve_visited_this_person">Please send us your feedback if you\'ve visited this person</string>
 </resources>

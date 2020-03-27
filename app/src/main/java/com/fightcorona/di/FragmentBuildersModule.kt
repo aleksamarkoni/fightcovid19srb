@@ -21,4 +21,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeAllFeedbacksFragment(): AllFeedbacksFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeCreateVisitFragment(): CreateVisitFragment
 }

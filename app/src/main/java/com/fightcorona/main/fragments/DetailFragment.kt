@@ -57,6 +57,7 @@ class DetailFragment : Fragment(), Injectable, OnMapReadyCallback {
         setupToolbar()
         getMapAsync()
         setupViewAllFeedbacksButton()
+        setupAddVisitButton()
         fetchPoiDetail()
 
         viewModel.poiDetail.observe(viewLifecycleOwner, Observer { poiDetail ->
@@ -64,6 +65,16 @@ class DetailFragment : Fragment(), Injectable, OnMapReadyCallback {
                 setupUi(poiDetail)
             }
         })
+    }
+
+    private fun setupAddVisitButton() {
+        button_person_visited.setOnClickListener {
+            findNavController().navigate(
+                DetailFragmentDirections.actionEndangeredDetailFragment2ToCreateVisitFragment(
+                    args.id
+                )
+            )
+        }
     }
 
     private fun setupUi(poiDetail: PoiDetail) {

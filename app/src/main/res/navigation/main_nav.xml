@@ -59,9 +59,20 @@
         <action
             android:id="@+id/action_endangeredDetailFragment2_to_allFeedbacksFragment"
             app:destination="@id/allFeedbacksFragment" />
+        <action
+            android:id="@+id/action_endangeredDetailFragment2_to_createVisitFragment"
+            app:destination="@id/createVisitFragment" />
     </fragment>
     <dialog
         android:id="@+id/allFeedbacksFragment"
         android:name="com.fightcorona.main.fragments.AllFeedbacksFragment"
         android:label="AllFeedbacksFragment" />
+    <dialog
+        android:id="@+id/createVisitFragment"
+        android:name="com.fightcorona.main.fragments.CreateVisitFragment"
+        android:label="CreateVisitFragment" >
+        <argument
+            android:name="poiId"
+            app:argType="integer" />
+    </dialog>
 </navigation>
