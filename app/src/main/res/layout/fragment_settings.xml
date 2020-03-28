@@ -64,6 +64,42 @@
         app:layout_constraintStart_toEndOf="@id/email_title"
         tools:text="aleksamarkoni@gmail.com" />
 
+    <TextView
+        android:id="@+id/max_distance_text"
+        style="@style/NormalText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="@string/select_max_distance_to_search_for_endangered_person"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image" />
+
+    <SeekBar
+        android:id="@+id/distance_seek_bar"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:max="18"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:progressTint="@color/colorPrimary"
+        android:thumbTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/max_distance_text" />
+
+    <TextView
+        android:id="@+id/distance_selected_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/selected_distance"
+        app:layout_constraintEnd_toEndOf="@id/distance_seek_bar"
+        app:layout_constraintTop_toBottomOf="@id/distance_seek_bar"
+        tools:text="Selected distance: 2km" />
+
     <Button
         android:id="@+id/logout_button"
         style="@style/LogoutButton"

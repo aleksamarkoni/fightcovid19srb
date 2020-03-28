@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.fightcorona.di.Injectable
 import com.fightcorona.main.MainActivity
 import com.fightcorona.signin.SignInActivity
+import com.fightcorona.util.SEARCH_DISTANCE
+import com.fightcorona.util.TinyDb
 import com.google.fightcorona.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -19,6 +22,9 @@ class SettingsFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
+
+    @Inject
+    lateinit var tinyDb: TinyDb
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,11 +39,36 @@ class SettingsFragment : Fragment(), Injectable {
         setupToolbar()
         setupLogoutButton()
         setupUi()
+        setupSeekbar()
+    }
+
+    private fun setupSeekbar() {
+
+        distance_seek_bar.progress = tinyDb.getInt(SEARCH_DISTANCE, 0) - 2
+        distance_selected_text.text =
+            getString(R.string.selected_distance, tinyDb.getInt(SEARCH_DISTANCE, 2))
+
+        distance_seek_bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, p1: Int, p2: Boolean) {
+                distance_selected_text.text =
+                    getString(R.string.selected_distance, seekBar.progress + 2)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                tinyDb.putInt(SEARCH_DISTANCE, seekBar.progress + 2)
+            }
+
+        })
     }
 
     private fun setupUi() {
         name_value.text = firebaseAuth.currentUser?.displayName
         email_value.text = firebaseAuth.currentUser?.email
+        distance_selected_text.text = getString(R.string.selected_distance, 2)
         setupProfilePicture()
     }
 
@@ -52,6 +83,7 @@ class SettingsFragment : Fragment(), Injectable {
     private fun setupLogoutButton() {
         logout_button.setOnClickListener {
             firebaseAuth.signOut()
+            tinyDb.clear()
             startActivity(SignInActivity.createIntent(requireContext()))
             activity?.finish()
         }

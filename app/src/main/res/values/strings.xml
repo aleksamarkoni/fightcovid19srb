@@ -39,4 +39,6 @@
     <string name="profile">Profile</string>
     <string name="name">Name:</string>
     <string name="email_label">Email:</string>
+    <string name="select_max_distance_to_search_for_endangered_person">Select max distance to search for endangered person:</string>
+    <string name="selected_distance">Selected distance: %1$dkm</string>
 </resources>

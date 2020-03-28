@@ -1,6 +1,8 @@
 package com.fightcorona.remote
 
 import com.fightcorona.main.PeopleType
+import com.fightcorona.util.SEARCH_DISTANCE
+import com.fightcorona.util.TinyDb
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -11,7 +13,8 @@ import kotlin.collections.HashMap
 
 class PoiRepository(
     private val fightCorona19Service: FightCorona19RestService,
-    private val retrofitUtils: RetrofitUtils
+    private val retrofitUtils: RetrofitUtils,
+    private val tinyDb: TinyDb
 ) {
     suspend fun createPointOfInterest(
         latitude: Float,
@@ -47,7 +50,8 @@ class PoiRepository(
 
     suspend fun getPoi(latitude: Float, longitude: Float): HashMap<MarkerOptions, Int>? =
         withContext(Dispatchers.IO) {
-            val response = fightCorona19Service.getPoi(latitude, longitude, null)
+            val response =
+                fightCorona19Service.getPoi(latitude, longitude, tinyDb.getInt(SEARCH_DISTANCE, 2))
             val result = retrofitUtils.handleResponse(response)
             return@withContext preparePoiData((result))
         }
