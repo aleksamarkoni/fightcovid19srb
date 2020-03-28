@@ -1,6 +1,7 @@
 package com.fightcorona.signin
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -27,7 +28,8 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
-    private lateinit var firebaseAuth: FirebaseAuth
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun androidInjector(): AndroidInjector<Any> {
         return dispatchingAndroidInjector
@@ -101,5 +103,13 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
                     Timber.d("signInWithCredential:failure ${task.exception}")
                 }
             }
+    }
+
+    companion object {
+        fun createIntent(context: Context): Intent {
+            val intent = Intent(context, SignInActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK
+            return intent
+        }
     }
 }

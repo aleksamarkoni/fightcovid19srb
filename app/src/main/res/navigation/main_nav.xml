@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_mapFragment_to_endangeredDetailFragment2"
             app:destination="@id/endangeredDetailFragment2" />
+        <action
+            android:id="@+id/action_mapFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <dialog
         android:id="@+id/volunteerFragment"
@@ -75,4 +78,8 @@
             android:name="poiId"
             app:argType="integer" />
     </dialog>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.fightcorona.main.fragments.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

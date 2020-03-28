@@ -34,4 +34,9 @@
     <string name="add_visit">Add visit</string>
     <string name="add_visit_for_this_person">Add visit for this person</string>
     <string name="please_send_us_your_feedback_if_you_ve_visited_this_person">Please send us your feedback if you\'ve visited this person</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="name">Name:</string>
+    <string name="email_label">Email:</string>
 </resources>

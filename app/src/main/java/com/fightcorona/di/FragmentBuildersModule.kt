@@ -24,4 +24,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeCreateVisitFragment(): CreateVisitFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeSettingsFragment(): SettingsFragment
 }

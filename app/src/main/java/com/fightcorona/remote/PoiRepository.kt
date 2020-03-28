@@ -30,7 +30,7 @@ class PoiRepository(
             latitude,
             longitude,
             address,
-            floor?.toInt(),
+            if (floor != "") floor?.toInt() else null,
             apartment,
             phone,
             note
