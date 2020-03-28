@@ -81,6 +81,7 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
         with(activity as MainActivity) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowTitleEnabled(true)
+            setHasOptionsMenu(false)
             supportActionBar?.setHomeAsUpIndicator(
                 ContextCompat.getDrawable(
                     requireContext(),
