@@ -1,20 +1,34 @@
 package com.fightcorona.remote
 
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
+import timber.log.Timber
 
 class GoogleAuthTokenInterceptor(private val firebaseAuth: FirebaseAuth) : Interceptor {
 
-    @Throws(NoTokenException::class)
+    @Throws(NoTokenException::class, ApiException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-        runBlocking {
-            if (firebaseAuth.currentUser == null) {
-                throw NoTokenException()
-            }
+        val task = firebaseAuth.currentUser?.getIdToken(false)
+        val token: String
+        try {
+            val tokenResult = task?.getResult(ApiException::class.java)
+            token = tokenResult?.token!!
+        } catch (e: ApiException) {
+            Timber.e(e)
+            throw NoTokenException()
         }
-        val builder = chain.request().newBuilder()
-        return chain.proceed(builder.build())
+        return chain.run {
+            proceed(
+                request()
+                    .newBuilder()
+                    .addHeader(
+                        "authorization",
+                        token
+                    )
+                    .build()
+            )
+        }
     }
 }

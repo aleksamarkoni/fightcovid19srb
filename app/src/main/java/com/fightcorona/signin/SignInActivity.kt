@@ -38,7 +38,6 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
-        firebaseAuth = FirebaseAuth.getInstance()
         checkIfUserIsSignedIn()
     }
 
