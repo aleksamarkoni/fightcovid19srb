@@ -40,7 +40,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "mobile/build.gradle" }}
       - run:
           name: assembleDev
-          command: ./gradlew assemble
+          command: ./gradlew assembleDev
       - store_artifacts:
           path: mobile/build/outputs/apk
           destination: apks
