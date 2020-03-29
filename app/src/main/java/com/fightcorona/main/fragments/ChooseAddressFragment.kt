@@ -1,9 +1,7 @@
 package com.fightcorona.main.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -75,6 +73,11 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
                 )
             )
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.person_detail_menu, menu)
     }
 
     private fun setupToolbar() {

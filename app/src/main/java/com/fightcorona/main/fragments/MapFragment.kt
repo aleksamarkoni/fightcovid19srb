@@ -127,6 +127,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
             getMarkerDetail(marker)
         }
         viewModel.mapMarkers.observe(this, Observer { marker ->
+            mMap.clear()
             marker?.let { hashMap ->
                 setupMarkers(hashMap)
             }

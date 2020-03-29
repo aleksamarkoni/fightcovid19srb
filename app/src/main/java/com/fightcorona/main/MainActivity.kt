@@ -39,10 +39,10 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.person_detail_menu, menu)
-        return false
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.person_detail_menu, menu)
+//        return false
+//    }
 }
 
 enum class PeopleType {
