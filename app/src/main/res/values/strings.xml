@@ -41,4 +41,7 @@
     <string name="email_label">Email:</string>
     <string name="select_max_distance_to_search_for_endangered_person">Select max distance to search for endangered person:</string>
     <string name="selected_distance">Selected distance: %1$dkm</string>
+
+    <string name="facebook_application_id" translatable="false">586359555297489</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb586359555297489</string>
 </resources>

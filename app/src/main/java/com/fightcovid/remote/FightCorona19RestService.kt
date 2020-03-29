@@ -10,6 +10,11 @@ interface FightCorona19RestService {
         @Body poi: Poi
     ): Response<Void>
 
+    @POST("visit")
+    suspend fun createVisit(
+        @Body visit: Visit
+    ): Response<Void>
+
     @GET("poi/{latitude}/{longitude}")
     suspend fun getPoi(
         @Path("latitude") lat: Float,
@@ -21,4 +26,7 @@ interface FightCorona19RestService {
     suspend fun getPoiDetail(
         @Path("id") id: Int
     ): Response<PoiDetail>
+
+    @GET("user")
+    suspend fun getUser(): Response<Void>
 }

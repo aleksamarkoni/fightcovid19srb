@@ -24,7 +24,7 @@ class GoogleAuthTokenInterceptor(private val firebaseAuth: FirebaseAuth) : Inter
                 request()
                     .newBuilder()
                     .addHeader(
-                        "authorization",
+                        "Authorisation",
                         token
                     )
                     .build()

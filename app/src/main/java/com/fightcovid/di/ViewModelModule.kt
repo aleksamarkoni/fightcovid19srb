@@ -2,10 +2,7 @@ package com.fightcovid.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.fightcovid.main.view_models.AddPersonViewModel
-import com.fightcovid.main.view_models.FeedbacksViewModel
-import com.fightcovid.main.view_models.MapViewModel
-import com.fightcovid.main.view_models.PersonDetailViewModel
+import com.fightcovid.main.view_models.*
 import com.fightcovid.util.ViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -36,4 +33,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FeedbacksViewModel::class)
     abstract fun feedbacksViewModel(feedbacksViewModel: FeedbacksViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CreateVisitViewModel::class)
+    abstract fun createVisitViewModel(createVisitViewModel: CreateVisitViewModel): ViewModel
 }

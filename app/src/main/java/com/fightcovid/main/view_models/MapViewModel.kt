@@ -21,6 +21,7 @@ class MapViewModel @Inject constructor(private val poiRepo: PoiRepository) : Vie
     fun getPoi(latitude: Float, longitude: Float) {
         viewModelScope.launch {
             try {
+               // poiRepo.getUser()
                 _mapMarkers.value = poiRepo.getPoi(latitude, longitude)
             } catch (e: IOException) {
                 Timber.e(e)

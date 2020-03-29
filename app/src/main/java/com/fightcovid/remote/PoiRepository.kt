@@ -42,9 +42,21 @@ class PoiRepository(
         return@withContext response.isSuccessful
     }
 
+    suspend fun createVisit(visitId: Int, feedback: String) = withContext(Dispatchers.IO) {
+        val visit = Visit(visitId, feedback)
+        val response = fightCorona19Service.createVisit(visit)
+        return@withContext response.isSuccessful
+    }
+
     suspend fun getPoiDetail(id: Int) =
         withContext(Dispatchers.IO) {
             val response = fightCorona19Service.getPoiDetail(id)
+            return@withContext retrofitUtils.handleResponse(response)
+        }
+
+    suspend fun getUser() =
+        withContext(Dispatchers.IO) {
+            val response = fightCorona19Service.getUser()
             return@withContext retrofitUtils.handleResponse(response)
         }
 

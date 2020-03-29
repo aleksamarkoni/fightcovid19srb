@@ -42,7 +42,7 @@ android {
             resValue "string", "app_name", "FightCovid Dev"
             versionNameSuffix "-dev"
             applicationIdSuffix ".dev"
-            buildConfigField 'String', 'BASE_URL', '"https://vinomond.usluge.org/"'
+            buildConfigField 'String', 'BASE_URL', '"https://vino.usluge.org/"'
         }
         production {
             dimension "version"
@@ -112,6 +112,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.facebook.android:facebook-android-sdk:6.3.0'
 
     //CircleImage
     implementation 'de.hdodenhof:circleimageview:3.1.0'
