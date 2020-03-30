@@ -3,6 +3,7 @@ package com.fightcovid.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fightcovid.main.view_models.*
+import com.fightcovid.signin.SigninViewModel
 import com.fightcovid.util.ViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -38,4 +39,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CreateVisitViewModel::class)
     abstract fun createVisitViewModel(createVisitViewModel: CreateVisitViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SigninViewModel::class)
+    abstract fun signinViewModel(signinViewModel: SigninViewModel): ViewModel
 }

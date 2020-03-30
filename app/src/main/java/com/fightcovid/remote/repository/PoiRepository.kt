@@ -1,6 +1,7 @@
-package com.fightcovid.remote
+package com.fightcovid.remote.repository
 
 import com.fightcovid.main.PeopleType
+import com.fightcovid.remote.*
 import com.fightcovid.util.SEARCH_DISTANCE
 import com.fightcovid.util.TinyDb
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -51,12 +52,6 @@ class PoiRepository(
     suspend fun getPoiDetail(id: Int) =
         withContext(Dispatchers.IO) {
             val response = fightCorona19Service.getPoiDetail(id)
-            return@withContext retrofitUtils.handleResponse(response)
-        }
-
-    suspend fun getUser() =
-        withContext(Dispatchers.IO) {
-            val response = fightCorona19Service.getUser()
             return@withContext retrofitUtils.handleResponse(response)
         }
 

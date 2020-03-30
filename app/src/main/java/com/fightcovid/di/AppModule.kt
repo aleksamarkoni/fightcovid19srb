@@ -3,8 +3,9 @@ package com.fightcovid.di
 import android.app.Application
 import com.fightcovid.remote.FightCorona19RestService
 import com.fightcovid.remote.GoogleAuthTokenInterceptor
-import com.fightcovid.remote.PoiRepository
 import com.fightcovid.remote.RetrofitUtils
+import com.fightcovid.remote.repository.PoiRepository
+import com.fightcovid.remote.repository.UserRepository
 import com.fightcovid.util.TinyDb
 import com.google.fightcorona.BuildConfig
 import com.google.fightcorona.BuildConfig.BASE_URL
@@ -31,7 +32,17 @@ class AppModule {
         retrofitUtils: RetrofitUtils,
         tinyDb: TinyDb
     ): PoiRepository =
-        PoiRepository(restService, retrofitUtils, tinyDb)
+        PoiRepository(
+            restService,
+            retrofitUtils,
+            tinyDb
+        )
+
+    @Singleton
+    @Provides
+    internal fun provideUserRepository(
+        restService: FightCorona19RestService
+    ): UserRepository = UserRepository(restService)
 
     @Singleton
     @Provides
@@ -92,8 +103,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideGoogleAuthTokenInterceptor(firebaseAuth: FirebaseAuth) =
-        GoogleAuthTokenInterceptor(FirebaseAuth.getInstance())
+    fun provideGoogleAuthTokenInterceptor(tinyDb: TinyDb) =
+        GoogleAuthTokenInterceptor(tinyDb)
 
     @Provides
     @Singleton

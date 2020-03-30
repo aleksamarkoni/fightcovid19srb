@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightcovid.main.PeopleType
-import com.fightcovid.remote.PoiRepository
+import com.fightcovid.remote.repository.PoiRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.IOException

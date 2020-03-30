@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -13,6 +15,8 @@ import com.facebook.FacebookException
 import com.facebook.appevents.UserDataStore.EMAIL
 import com.facebook.login.LoginResult
 import com.fightcovid.main.MainActivity
+import com.fightcovid.util.TOKEN
+import com.fightcovid.util.TinyDb
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -26,7 +30,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.activity_signin.*
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class SignInActivity : AppCompatActivity(), HasAndroidInjector {
@@ -37,7 +40,15 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
     lateinit var firebaseAuth: FirebaseAuth
+
+    @Inject
+    lateinit var tinyDb: TinyDb
+
+    private lateinit var viewModel: SigninViewModel
 
     private lateinit var callbackManager: CallbackManager
 
@@ -50,6 +61,54 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
         setContentView(R.layout.activity_signin)
         checkIfUserIsSignedIn()
         setupFacebookButton()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(SigninViewModel::class.java)
+
+        viewModel.isLoading.observe(this, Observer { result ->
+            result?.let { isLoading ->
+                if (isLoading) {
+                    login_progress_spinner.show()
+                    facebook_login_button.visibility = View.INVISIBLE
+                    gmail_signin_button.visibility = View.INVISIBLE
+                } else {
+                    login_progress_spinner.hide()
+                    facebook_login_button.visibility = View.VISIBLE
+                    gmail_signin_button.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        viewModel.loginSuccessful.observe(this, Observer { result ->
+            result?.let { loginSuccessful ->
+                if (loginSuccessful) {
+                    startMainActivity()
+                } else {
+                    Timber.d("Error login in")
+                }
+            }
+        })
+    }
+
+    private fun checkIfUserIsSignedIn() {
+        if (firebaseAuth.currentUser == null) {
+            showSigninButton()
+        } else {
+            saveToken()
+            startMainActivity()
+        }
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
+    }
+
+    private fun showSigninButton() {
+        gmail_signin_button.visibility = View.VISIBLE
+        gmail_signin_button.setOnClickListener {
+            startSigninFlow()
+        }
     }
 
     private fun setupFacebookButton() {
@@ -71,28 +130,6 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
                     Timber.d("facebook:onError $error")
                 }
             })
-    }
-
-    private fun checkIfUserIsSignedIn() {
-        if (firebaseAuth.currentUser == null) {
-            showSigninButton()
-        } else {
-            startMainActivity()
-        }
-    }
-
-    private fun startMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        finish()
-    }
-
-    private fun showSigninButton() {
-        gmail_signin_button.visibility = View.VISIBLE
-        gmail_signin_button.setOnClickListener {
-            startSigninFlow()
-        }
     }
 
     private fun startSigninFlow() {
@@ -125,12 +162,9 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Timber.d("signInWithCredential:success")
-                    val user = firebaseAuth.currentUser
-                    startMainActivity()
+                    saveToken()
+                    viewModel.getUser()
                 } else {
-                    // If sign in fails, display a message to the user.
                     Timber.d("signInWithCredential:failure ${task.exception}")
                 }
             }
@@ -141,15 +175,25 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Timber.d("signInWithCredential:success")
-                    val user = firebaseAuth.currentUser
-                    startMainActivity()
+                    saveToken()
+                    viewModel.getUser()
                 } else {
-                    // If sign in fails, display a message to the user.
                     Timber.w("signInWithCredential:failure ${task.exception}")
                 }
             }
+    }
+
+    private fun saveToken() {
+        val task = firebaseAuth.currentUser?.getIdToken(false)
+        try {
+            val tokenResult = task?.getResult(ApiException::class.java)
+            tokenResult?.token?.let {
+                Timber.d("Stored token is $it")
+                tinyDb.putString(TOKEN, it)
+            }
+        } catch (e: ApiException) {
+            Timber.e(e)
+        }
     }
 
     companion object {

@@ -2,7 +2,7 @@ package com.fightcovid.main.view_models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fightcovid.remote.PoiRepository
+import com.fightcovid.remote.repository.PoiRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
