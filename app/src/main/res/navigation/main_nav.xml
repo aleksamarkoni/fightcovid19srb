@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_mapFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_volunteerDetailFragment"
+            app:destination="@id/volunteerDetailFragment" />
     </fragment>
     <dialog
         android:id="@+id/volunteerFragment"
@@ -82,4 +85,12 @@
         android:id="@+id/settingsFragment"
         android:name="com.fightcovid.main.fragments.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/volunteerDetailFragment"
+        android:name="com.fightcovid.main.fragments.VolunteerDetailFragment"
+        android:label="VolunteerDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

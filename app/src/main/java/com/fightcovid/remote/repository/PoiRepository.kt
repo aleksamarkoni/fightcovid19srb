@@ -55,7 +55,7 @@ class PoiRepository(
             return@withContext retrofitUtils.handleResponse(response)
         }
 
-    suspend fun getPoi(latitude: Float, longitude: Float): HashMap<MarkerOptions, Int>? =
+    suspend fun getPoi(latitude: Float, longitude: Float): HashMap<MarkerOptions, MarkerDetails>? =
         withContext(Dispatchers.IO) {
             val response =
                 fightCorona19Service.getPoi(latitude, longitude, tinyDb.getInt(SEARCH_DISTANCE, 2))
@@ -63,8 +63,8 @@ class PoiRepository(
             return@withContext preparePoiData((result))
         }
 
-    private fun preparePoiData(list: List<MapMarker>?): HashMap<MarkerOptions, Int> {
-        val hashMap = HashMap<MarkerOptions, Int>()
+    private fun preparePoiData(list: List<MapMarker>?): HashMap<MarkerOptions, MarkerDetails> {
+        val hashMap = HashMap<MarkerOptions, MarkerDetails>()
         val colorList = listOf(
             BitmapDescriptorFactory.HUE_YELLOW,
             BitmapDescriptorFactory.HUE_GREEN,
@@ -84,9 +84,14 @@ class PoiRepository(
                     )
                     .title(if (item.type == PeopleType.ENDANGERED.name.toLowerCase(Locale.getDefault())) "Endangered person" else "Volunteer")
                     .snippet("Click for more details")
-                    .draggable(true)] = item.id
+                    .draggable(true)] = MarkerDetails(item.id, PeopleType.valueOf(item.type.toUpperCase()))
             }
         }
         return hashMap
     }
 }
+
+data class MarkerDetails(
+    val id: Int,
+    val markerType: PeopleType
+)

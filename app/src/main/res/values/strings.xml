@@ -44,4 +44,5 @@
 
     <string name="facebook_application_id" translatable="false">586359555297489</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb586359555297489</string>
+    <string name="volunteer_details">Volunteer details:</string>
 </resources>

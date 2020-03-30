@@ -13,8 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fightcovid.di.Injectable
 import com.fightcovid.main.MainActivity
-import com.fightcovid.main.PeopleType
+import com.fightcovid.main.PeopleType.ENDANGERED
+import com.fightcovid.main.PeopleType.VOLUNTEER
 import com.fightcovid.main.view_models.MapViewModel
+import com.fightcovid.remote.repository.MarkerDetails
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -42,7 +44,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
-    private var markerHashMap = HashMap<Marker, Int>()
+    private var markerHashMap = HashMap<Marker, MarkerDetails>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,7 +78,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         add_volunteer_button.setOnClickListener {
             findNavController().navigate(
                 MapFragmentDirections.actionMapFragmentToChooseAddressFragment(
-                    PeopleType.VOLUNTEER
+                    VOLUNTEER
                 )
             )
         }
@@ -86,7 +88,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         add_endangered_people_people.setOnClickListener {
             findNavController().navigate(
                 MapFragmentDirections.actionMapFragmentToChooseAddressFragment(
-                    PeopleType.ENDANGERED
+                    ENDANGERED
                 )
             )
         }
@@ -136,18 +138,38 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private fun getMarkerDetail(marker: Marker) {
         Timber.d("Id of clicked marker is ${markerHashMap[marker]}")
-        markerHashMap[marker]?.let { id ->
-            findNavController().navigate(
-                MapFragmentDirections.actionMapFragmentToEndangeredDetailFragment2(
-                    id,
-                    marker.position.latitude.toFloat(),
-                    marker.position.longitude.toFloat()
-                )
-            )
+        markerHashMap[marker]?.let { markerDetail ->
+            when (markerDetail.markerType) {
+                VOLUNTEER -> {
+                    openVolunteerDetailFragment(markerDetail.id)
+                }
+                ENDANGERED -> {
+                    openEndangeredDetailFragment(marker, markerDetail.id)
+                }
+            }
         }
     }
 
-    private fun setupMarkers(hashMap: HashMap<MarkerOptions, Int>) {
+    private fun openVolunteerDetailFragment(id: Int) {
+        findNavController().navigate(
+            MapFragmentDirections.actionMapFragmentToVolunteerDetailFragment(id)
+        )
+    }
+
+    private fun openEndangeredDetailFragment(
+        marker: Marker,
+        endangeredId: Int
+    ) {
+        findNavController().navigate(
+            MapFragmentDirections.actionMapFragmentToEndangeredDetailFragment2(
+                endangeredId,
+                marker.position.latitude.toFloat(),
+                marker.position.longitude.toFloat()
+            )
+        )
+    }
+
+    private fun setupMarkers(hashMap: HashMap<MarkerOptions, MarkerDetails>) {
         for (item in hashMap.keys) {
             val mapMarker = mMap.addMarker(item)
             markerHashMap[mapMarker] = hashMap[item]!!

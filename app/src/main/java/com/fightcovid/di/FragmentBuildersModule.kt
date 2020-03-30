@@ -27,4 +27,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeSettingsFragment(): SettingsFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeVolunteerDetailFragment(): VolunteerDetailFragment
 }
