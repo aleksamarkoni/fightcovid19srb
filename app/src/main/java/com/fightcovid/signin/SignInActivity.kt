@@ -15,6 +15,7 @@ import com.facebook.FacebookException
 import com.facebook.appevents.UserDataStore.EMAIL
 import com.facebook.login.LoginResult
 import com.fightcovid.main.MainActivity
+import com.fightcovid.remote.NoTokenException
 import com.fightcovid.util.TOKEN
 import com.fightcovid.util.TinyDb
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -113,7 +114,7 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
 
     private fun setupFacebookButton() {
         callbackManager = CallbackManager.Factory.create()
-        facebook_login_button.setReadPermissions(listOf(EMAIL))
+        facebook_login_button.setPermissions(listOf(EMAIL))
         facebook_login_button.registerCallback(
             callbackManager,
             object : FacebookCallback<LoginResult> {
@@ -143,7 +144,7 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SIGNIN_RESULT_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -185,14 +186,20 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
 
     private fun saveToken() {
         val task = firebaseAuth.currentUser?.getIdToken(false)
-        try {
-            val tokenResult = task?.getResult(ApiException::class.java)
-            tokenResult?.token?.let {
-                Timber.d("Stored token is $it")
-                tinyDb.putString(TOKEN, it)
+        task?.addOnCompleteListener {
+            if (it.isSuccessful) {
+                try {
+                    val tokenResult = task.getResult(ApiException::class.java)
+                    tokenResult?.token?.let {
+                        Timber.d("Stored token is $it")
+                        tinyDb.putString(TOKEN, it)
+                    }
+                } catch (e: ApiException) {
+                    Timber.e(e)
+                }
+            } else {
+                throw NoTokenException()
             }
-        } catch (e: ApiException) {
-            Timber.e(e)
         }
     }
 
