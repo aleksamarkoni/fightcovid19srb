@@ -44,5 +44,8 @@
 
     <string name="facebook_application_id" translatable="false">586359555297489</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb586359555297489</string>
-    <string name="volunteer_details">Volunteer details:</string>
+    <string name="volunteer_details">Volunteer details</string>
+    <string name="here_you_can_find_detailed_information_about_volunteer">Here you can find detailed information about volunteer.</string>
+    <string name="please_contact_volunteer_only_if_s_absolutely_necessary">Please contact volunteer only if it\'s absolutely necessary!</string>
+    <string name="phone_label">Phone:</string>
 </resources>

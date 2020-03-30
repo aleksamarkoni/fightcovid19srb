@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/endangeredDetailFragment2"
-        android:name="com.fightcovid.main.fragments.DetailFragment"
+        android:name="com.fightcovid.main.fragments.EndangeredDetailFragment"
         android:label="EndangeredDetailFragment" >
         <argument
             android:name="id"

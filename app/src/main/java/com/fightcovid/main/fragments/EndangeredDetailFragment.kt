@@ -32,14 +32,14 @@ import kotlinx.android.synthetic.main.fragment_person_detail.*
 import javax.inject.Inject
 
 
-class DetailFragment : Fragment(), Injectable, OnMapReadyCallback {
+class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: PersonDetailViewModel
 
-    private val args: DetailFragmentArgs by navArgs()
+    private val args: EndangeredDetailFragmentArgs by navArgs()
 
     private lateinit var mMap: GoogleMap
 
@@ -70,7 +70,7 @@ class DetailFragment : Fragment(), Injectable, OnMapReadyCallback {
     private fun setupAddVisitButton() {
         button_person_visited.setOnClickListener {
             findNavController().navigate(
-                DetailFragmentDirections.actionEndangeredDetailFragment2ToCreateVisitFragment(
+                EndangeredDetailFragmentDirections.actionEndangeredDetailFragment2ToCreateVisitFragment(
                     args.id
                 )
             )
@@ -89,7 +89,7 @@ class DetailFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private fun setupViewAllFeedbacksButton() {
         view_all_feedbacks.setOnClickListener {
-            findNavController().navigate(DetailFragmentDirections.actionEndangeredDetailFragment2ToAllFeedbacksFragment())
+            findNavController().navigate(EndangeredDetailFragmentDirections.actionEndangeredDetailFragment2ToAllFeedbacksFragment())
         }
     }
 
