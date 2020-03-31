@@ -44,6 +44,8 @@ jobs:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "mobile/build.gradle" }}
+      - *create_keystore_properties
+      - *decode_android_key
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
