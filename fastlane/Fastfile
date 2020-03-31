@@ -39,7 +39,7 @@ platform :android do
  lane :distributeDev do
            build_android_app(
              task: "assemble",
-             build_type: "devDebug"
+             build_type: "DevRelease"
            )
 
            firebase_app_distribution(

@@ -68,6 +68,8 @@ jobs:
       - *restore_gems_cache
       - *ruby_dependencies
       - *save_gems_cache
+      - *create_keystore_properties
+      - *decode_android_key
       - run:
           name: Install firebase
           command: curl -sL firebase.tools | bash
