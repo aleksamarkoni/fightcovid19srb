@@ -67,8 +67,8 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
         viewModel.isLoading.observe(this, Observer { result ->
             result?.let { isLoading ->
                 if (isLoading) {
-                    login_progress_spinner.show()
                     gmail_signin_button.visibility = View.INVISIBLE
+                    login_progress_spinner.show()
                 } else {
                     login_progress_spinner.hide()
                     gmail_signin_button.visibility = View.VISIBLE
