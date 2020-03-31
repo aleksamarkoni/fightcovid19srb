@@ -30,7 +30,7 @@ jobs:
     create_keystore_properties: &create_keystore_properties
       run:
         name: Create keystore.properies
-        command: printf 'debugKeyAlias=%s\ndebugKeyPassword=%s\ndebugKeyStore=%s\ndebugStorePassword=%s' $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
+        command: printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\ndebugKeyStore=%s\nreleaseStorePassword=%s' $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
     decode_android_key: &decode_android_key
       run:
         name: Create debug.keystore.jks
