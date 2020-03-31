@@ -27,8 +27,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(PersonDetailViewModel::class)
-    abstract fun personDetailViewModel(personDetailViewModel: PersonDetailViewModel): ViewModel
+    @ViewModelKey(PoiDetailViewModel::class)
+    abstract fun personDetailViewModel(poiDetailViewModel: PoiDetailViewModel): ViewModel
 
     @Binds
     @IntoMap

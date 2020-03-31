@@ -9,6 +9,7 @@
 
     <color name="transparentPrimary">#336200EE</color>
     <color name="transparentWhite">#E6FFFFFF</color>
+    <color name="transparentGray">#33808080</color>
     <color name="red">#FF0000</color>
     <color name="logout_red">#ED2939</color>
 </resources>

@@ -117,6 +117,11 @@
         app:layout_constraintBottom_toBottomOf="@id/email_label"
         app:layout_constraintStart_toEndOf="@id/email_label" />
 
+    <include
+        android:id="@+id/loading_fragment_volunteer_detail"
+        layout="@layout/loading_screen_item"
+        android:visibility="gone" />
+
     <ImageView
         android:id="@+id/email_volunteer_button"
         android:layout_width="32dp"

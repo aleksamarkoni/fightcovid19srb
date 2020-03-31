@@ -31,7 +31,18 @@ data class PoiDetail(
     @SerializedName("phone")
     val phone: String,
     @SerializedName("note")
-    val note: String
+    val note: String,
+    @SerializedName("creator")
+    val creator: PoiCreator
+)
+
+data class PoiCreator(
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("picture")
+    val picture: String?
 )
 
 class EmptyResponse() : Exception()

@@ -17,7 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fightcovid.di.Injectable
 import com.fightcovid.main.MainActivity
-import com.fightcovid.main.view_models.PersonDetailViewModel
+import com.fightcovid.main.view_models.PoiDetailViewModel
 import com.fightcovid.remote.PoiDetail
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -37,7 +37,7 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: PersonDetailViewModel
+    private lateinit var viewModel: PoiDetailViewModel
 
     private val args: EndangeredDetailFragmentArgs by navArgs()
 
@@ -53,7 +53,7 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(PersonDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(PoiDetailViewModel::class.java)
         setupToolbar()
         getMapAsync()
         setupViewAllFeedbacksButton()
