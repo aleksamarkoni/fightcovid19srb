@@ -5,13 +5,8 @@ jobs:
     docker:
       - image: circleci/android:api-28-alpha
     environment:
-      RELEASE_KEY_ALIAS: aleksamarkoni
-      RELEASE_KEY_PASSWORD: nikadatinecureci
-      RELEASE_KEYSTORE: fightcoviddev.jks
-      RELEASE_STORE_PASSWORD: Marinaje1!
       JVM_OPTS: -Xmx2048m
       GRADLE_OPTS: -Xmx1536m -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.caching=true -Dorg.gradle.configureondemand=true -Dkotlin.compiler.execution.strategy=in-process -Dkotlin.incremental=false
-      KEYSTORE: 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%
     gems_key: &gems_key
                 gems-{{ checksum "Gemfile.lock" }}
     restore_gems_cache: &restore_gems_cache
@@ -34,18 +29,18 @@ jobs:
         command: bundle check || bundle install --path vendor/bundle
     create_keystore_properties: &create_keystore_properties
       run:
-        name: Create keystore.properties
-        command: printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
+        name: Create keystore.properies
+        command: printf 'debugKeyAlias=%s\ndebugKeyPassword=%s\ndebugKeyStore=%s\ndebugStorePassword=%s' $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
     decode_android_key: &decode_android_key
       run:
-        name: Decode Android key store
-        command: echo $KEYSTORE | base64 -d > fightcoviddev.jks
+        name: Create debug.keystore.jks
+        command: echo $DEV_KEYSTORE | base64 -d > $RELEASE_KEYSTORE
     steps:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "mobile/build.gradle" }}
-      - *decode_android_key
       - *create_keystore_properties
+      - *decode_android_key
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
