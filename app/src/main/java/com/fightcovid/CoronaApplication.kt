@@ -1,6 +1,8 @@
 package com.fightcovid
 
 import android.app.Application
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.fightcovid.di.AppInjector
 import com.google.fightcorona.BuildConfig
 import dagger.android.AndroidInjector
@@ -26,6 +28,9 @@ class CoronaApplication : Application(), HasAndroidInjector {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
+        FacebookSdk.fullyInitialize()
+        AppEventsLogger.activateApp(this)
     }
 
     override fun androidInjector(): AndroidInjector<Any> {

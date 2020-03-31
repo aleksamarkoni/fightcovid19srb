@@ -85,4 +85,10 @@
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">32sp</item>
     </style>
+
+    <style name="SigninTitleText" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">32sp</item>
+    </style>
 </resources>

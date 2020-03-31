@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -61,18 +62,15 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
         checkIfUserIsSignedIn()
-        setupFacebookButton()
         viewModel = ViewModelProvider(this, viewModelFactory).get(SigninViewModel::class.java)
 
         viewModel.isLoading.observe(this, Observer { result ->
             result?.let { isLoading ->
                 if (isLoading) {
                     login_progress_spinner.show()
-                    facebook_login_button.visibility = View.INVISIBLE
                     gmail_signin_button.visibility = View.INVISIBLE
                 } else {
                     login_progress_spinner.hide()
-                    facebook_login_button.visibility = View.VISIBLE
                     gmail_signin_button.visibility = View.VISIBLE
                 }
             }
@@ -92,10 +90,55 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
     private fun checkIfUserIsSignedIn() {
         if (firebaseAuth.currentUser == null) {
             showSigninButton()
+            setupFacebookButton()
         } else {
             saveToken()
             startMainActivity()
         }
+    }
+
+    private fun setupFacebookButton() {
+        callbackManager = CallbackManager.Factory.create()
+        facebook_login_button.setReadPermissions(listOf(EMAIL))
+        facebook_login_button.registerCallback(
+            callbackManager,
+            object : FacebookCallback<LoginResult> {
+
+                override fun onSuccess(loginResult: LoginResult) {
+                    handleFacebookAccessToken(loginResult.accessToken)
+                }
+
+                override fun onCancel() {
+                    Timber.d("Login fb error cancel")
+                }
+
+                override fun onError(exception: FacebookException) {
+                    Timber.e("Login fb error ${exception.message}")
+                }
+            })
+    }
+
+    private fun handleFacebookAccessToken(accessToken: AccessToken) {
+        val credential = FacebookAuthProvider.getCredential(accessToken.token)
+        firebaseAuth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Timber.d("signInWithCredential:success")
+                    val user = firebaseAuth.currentUser
+                    //updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Timber.e("signInWithCredential:failure  ${task.exception}")
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    //updateUI(null)
+                }
+
+                // ...
+            }
     }
 
     private fun startMainActivity() {
@@ -112,27 +155,6 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
         }
     }
 
-    private fun setupFacebookButton() {
-        callbackManager = CallbackManager.Factory.create()
-        facebook_login_button.setPermissions(listOf(EMAIL))
-        facebook_login_button.registerCallback(
-            callbackManager,
-            object : FacebookCallback<LoginResult> {
-                override fun onSuccess(loginResult: LoginResult) {
-                    Timber.d("facebook:onSuccess:$loginResult")
-                    firebaseAuthWithFacebook(loginResult.accessToken)
-                }
-
-                override fun onCancel() {
-                    Timber.d("facebook:onCancel")
-                }
-
-                override fun onError(error: FacebookException) {
-                    Timber.d("facebook:onError $error")
-                }
-            })
-    }
-
     private fun startSigninFlow() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("113199709004-lnm748nm64fmmu7en2trbhavi9iuvqm6.apps.googleusercontent.com")
@@ -144,7 +166,7 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SIGNIN_RESULT_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -171,28 +193,15 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
             }
     }
 
-    private fun firebaseAuthWithFacebook(token: AccessToken) {
-        val credential = FacebookAuthProvider.getCredential(token.token)
-        firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    saveToken()
-                    viewModel.getUser()
-                } else {
-                    Timber.w("signInWithCredential:failure ${task.exception}")
-                }
-            }
-    }
-
     private fun saveToken() {
         val task = firebaseAuth.currentUser?.getIdToken(false)
         task?.addOnCompleteListener {
             if (it.isSuccessful) {
                 try {
                     val tokenResult = task.getResult(ApiException::class.java)
-                    tokenResult?.token?.let {
-                        Timber.d("Stored token is $it")
-                        tinyDb.putString(TOKEN, it)
+                    tokenResult?.token?.let {token ->
+                        Timber.d("Stored token is $token")
+                        tinyDb.putString(TOKEN, token)
                     }
                 } catch (e: ApiException) {
                     Timber.e(e)
