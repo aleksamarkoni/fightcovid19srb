@@ -39,7 +39,7 @@ jobs:
     decode_android_key: &decode_android_key
       run:
         name: Decode Android key store
-        command: echo $RELEASE_KEYSTORE_BASE64 | base64 -d > fightcoviddev.jks
+        command: echo $KEYSTORE | base64 -d > fightcoviddev.jks
     steps:
       - checkout
       - restore_cache:
