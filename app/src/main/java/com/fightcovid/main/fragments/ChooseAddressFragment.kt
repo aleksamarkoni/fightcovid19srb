@@ -121,7 +121,7 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
         locationResult.addOnSuccessListener(requireActivity()) {
             if (it != null) {
                 val currentLatLng = LatLng(it.latitude, it.longitude)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
             }
         }
     }
