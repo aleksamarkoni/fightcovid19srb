@@ -50,4 +50,7 @@
     <string name="fb_login_protocol_scheme">fb586359555297489</string>
     <string name="welcome_to_nfight_covid_19">Fight Covid 19</string>
     <string name="welcome_to">Welcome to</string>
+    <string name="create_visit">Create visit</string>
+    <string name="visit_created">Visit created</string>
+    <string name="error_creating_visit">Error creating visit</string>
 </resources>

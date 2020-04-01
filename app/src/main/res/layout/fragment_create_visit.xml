@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/visit_details"
+            android:imeOptions="actionDone"
             android:inputType="textMultiLine"
             android:maxLines="3" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -57,9 +58,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:enabled="false"
         android:text="@string/add_visit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/visit_detail_input_layout" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/create_visit_progress"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/create_visit_button"
+        app:layout_constraintEnd_toEndOf="@id/create_visit_button"
+        app:layout_constraintStart_toStartOf="@id/create_visit_button"
+        app:layout_constraintTop_toTopOf="@id/create_visit_button" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
