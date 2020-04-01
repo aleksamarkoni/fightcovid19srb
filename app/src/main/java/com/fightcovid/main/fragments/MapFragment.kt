@@ -123,6 +123,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         mMap = map
+        mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
         mMap.uiSettings.isMapToolbarEnabled = false
         updateLocationUi()
         mMap.setOnInfoWindowClickListener { marker ->

@@ -6,6 +6,8 @@ import com.fightcovid.remote.GoogleAuthTokenInterceptor
 import com.fightcovid.remote.RetrofitUtils
 import com.fightcovid.remote.repository.PoiRepository
 import com.fightcovid.remote.repository.UserRepository
+import com.fightcovid.util.AccountService
+import com.fightcovid.util.GoogleSigninService
 import com.fightcovid.util.TinyDb
 import com.google.fightcorona.BuildConfig
 import com.google.fightcorona.BuildConfig.BASE_URL
@@ -41,8 +43,9 @@ class AppModule {
     @Singleton
     @Provides
     internal fun provideUserRepository(
-        restService: FightCorona19RestService
-    ): UserRepository = UserRepository(restService)
+        restService: FightCorona19RestService,
+        accountService: AccountService
+    ): UserRepository = UserRepository(restService, accountService)
 
     @Singleton
     @Provides
@@ -110,4 +113,11 @@ class AppModule {
     @Singleton
     fun provideTinyDb(context: Application) = TinyDb(context)
 
+    @Provides
+    @Singleton
+    fun provideGoogleSigninService(
+        firebaseAuth: FirebaseAuth,
+        tinyDb: TinyDb,
+        context: Application
+    ): AccountService = GoogleSigninService(firebaseAuth, tinyDb, context)
 }

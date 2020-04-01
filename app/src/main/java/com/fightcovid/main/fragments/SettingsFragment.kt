@@ -5,12 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.fightcovid.di.Injectable
 import com.fightcovid.main.MainActivity
+import com.fightcovid.main.view_models.SettingsViewModel
 import com.fightcovid.signin.SignInActivity
+import com.fightcovid.util.LogoutError
+import com.fightcovid.util.LogoutResult
 import com.fightcovid.util.SEARCH_DISTANCE
 import com.fightcovid.util.TinyDb
 import com.google.fightcorona.R
@@ -26,6 +32,11 @@ class SettingsFragment : Fragment(), Injectable {
     @Inject
     lateinit var tinyDb: TinyDb
 
+    @Inject
+    lateinit var viewModelProvider: ViewModelProvider.Factory
+
+    private lateinit var viewModel: SettingsViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,10 +47,41 @@ class SettingsFragment : Fragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelProvider).get(SettingsViewModel::class.java)
         setupToolbar()
         setupLogoutButton()
         setupUi()
         setupSeekbar()
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { result ->
+            result?.let { isLoading ->
+                if (isLoading) {
+                    logout_button.visibility = View.INVISIBLE
+                    logout_progress_spinner.show()
+                } else {
+                    logout_progress_spinner.hide()
+                    logout_button.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        viewModel.logoutState.observe(viewLifecycleOwner, Observer { result ->
+            result?.let { logoutResult ->
+                when (logoutResult) {
+                    LogoutResult -> {
+                        startActivity(SignInActivity.createIntent(requireContext()))
+                        activity?.finish()
+                    }
+                    is LogoutError -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "${logoutResult.error}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        })
     }
 
     private fun setupSeekbar() {
@@ -82,10 +124,7 @@ class SettingsFragment : Fragment(), Injectable {
 
     private fun setupLogoutButton() {
         logout_button.setOnClickListener {
-            firebaseAuth.signOut()
-            tinyDb.clear()
-            startActivity(SignInActivity.createIntent(requireContext()))
-            activity?.finish()
+            viewModel.logoutUser()
         }
     }
 

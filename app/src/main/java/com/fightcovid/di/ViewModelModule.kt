@@ -44,4 +44,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SigninViewModel::class)
     abstract fun signinViewModel(signinViewModel: SigninViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SettingsViewModel::class)
+    abstract fun settingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
 }
