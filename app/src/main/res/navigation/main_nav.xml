@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_mapFragment_to_volunteerDetailFragment"
             app:destination="@id/volunteerDetailFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_chooseMapTypeFragment"
+            app:destination="@id/chooseMapTypeFragment" />
     </fragment>
     <dialog
         android:id="@+id/volunteerFragment"
@@ -93,4 +96,8 @@
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <dialog
+        android:id="@+id/chooseMapTypeFragment"
+        android:name="com.fightcovid.main.fragments.ChooseMapTypeFragment"
+        android:label="ChooseMapTypeFragment" />
 </navigation>

@@ -30,4 +30,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeVolunteerDetailFragment(): VolunteerDetailFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeChooseMapTypeFragment(): ChooseMapTypeFragment
 }

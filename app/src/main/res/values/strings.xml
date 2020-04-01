@@ -53,4 +53,8 @@
     <string name="create_visit">Create visit</string>
     <string name="visit_created">Visit created</string>
     <string name="error_creating_visit">Error creating visit</string>
+    <string name="map_type">Map type</string>
+    <string name="default_map">Default</string>
+    <string name="satellite_map">"Satellite "</string>
+    <string name="terrain_map">Terrain</string>
 </resources>

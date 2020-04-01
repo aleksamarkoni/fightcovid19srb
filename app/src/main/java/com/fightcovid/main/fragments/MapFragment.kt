@@ -15,8 +15,11 @@ import com.fightcovid.di.Injectable
 import com.fightcovid.main.MainActivity
 import com.fightcovid.main.PeopleType.ENDANGERED
 import com.fightcovid.main.PeopleType.VOLUNTEER
+import com.fightcovid.main.fragments.MapType.*
 import com.fightcovid.main.view_models.MapViewModel
 import com.fightcovid.remote.repository.MarkerDetails
+import com.fightcovid.util.MAP_TYPE
+import com.fightcovid.util.TinyDb
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -39,6 +42,9 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var tinyDb: TinyDb
 
     private lateinit var viewModel: MapViewModel
 
@@ -63,6 +69,13 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
             LocationServices.getFusedLocationProviderClient(requireActivity())
         setupAddVolunteerButton()
         setupAddEndangeredButton()
+        setupChooseMapButton()
+    }
+
+    private fun setupChooseMapButton() {
+        choose_map_type_button.setOnClickListener {
+            findNavController().navigate(MapFragmentDirections.actionMapFragmentToChooseMapTypeFragment())
+        }
     }
 
     private fun setupToolbar() {
@@ -123,7 +136,8 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         mMap = map
-        mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+        val mapType = tinyDb.getString(MAP_TYPE)
+        setMapType(if (mapType.isNullOrBlank()) SATELLITE_MAP else valueOf(mapType))
         mMap.uiSettings.isMapToolbarEnabled = false
         updateLocationUi()
         mMap.setOnInfoWindowClickListener { marker ->
@@ -240,5 +254,13 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private fun openSettings() {
         findNavController().navigate(MapFragmentDirections.actionMapFragmentToSettingsFragment())
+    }
+
+    fun setMapType(mapType: MapType) {
+        when (mapType) {
+            DEFAULT_MAP -> mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            SATELLITE_MAP -> mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+            TERRAIN_MAP -> mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+        }
     }
 }
