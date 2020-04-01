@@ -59,13 +59,25 @@ class ChooseMapTypeFragment : BottomSheetDialogFragment(), Injectable {
 
         when (chooseMap) {
             DEFAULT_MAP -> {
-                setupSelectedUi(true, false, false)
+                setupSelectedUi(
+                    defaultSelected = true,
+                    sateliteSelected = false,
+                    terrainSelected = false
+                )
             }
             SATELLITE_MAP -> {
-                setupSelectedUi(false, true, false)
+                setupSelectedUi(
+                    defaultSelected = false,
+                    sateliteSelected = true,
+                    terrainSelected = false
+                )
             }
             TERRAIN_MAP -> {
-                setupSelectedUi(false, false, true)
+                setupSelectedUi(
+                    defaultSelected = false,
+                    sateliteSelected = false,
+                    terrainSelected = true
+                )
             }
         }
     }

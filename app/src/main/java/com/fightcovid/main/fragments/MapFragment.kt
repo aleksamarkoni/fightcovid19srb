@@ -133,7 +133,6 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         }
     }
 
-
     override fun onMapReady(map: GoogleMap) {
         mMap = map
         val mapType = tinyDb.getString(MAP_TYPE)
