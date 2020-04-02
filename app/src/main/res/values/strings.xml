@@ -20,7 +20,7 @@
     <string name="visited">Visited</string>
     <string name="visit_detail">Details</string>
     <string name="remove">Remove</string>
-    <string name="last_visited">Last visited:</string>
+    <string name="last_visited">Last visit:</string>
     <string name="required">Required:</string>
     <string name="volunteer_who_visited_this_person_last_wrote">Feedback from last volunteer who visited this person:</string>
     <string name="view_all_feedback">View all feedback</string>
@@ -57,4 +57,6 @@
     <string name="default_map">Default</string>
     <string name="satellite_map">"Satellite "</string>
     <string name="terrain_map">Terrain</string>
+    <string name="nobody_visited_person">Nobody visited this person yet</string>
+    <string name="no_special_notes">No special notes</string>
 </resources>

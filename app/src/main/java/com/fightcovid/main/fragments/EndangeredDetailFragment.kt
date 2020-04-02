@@ -18,7 +18,9 @@ import androidx.navigation.fragment.navArgs
 import com.fightcovid.di.Injectable
 import com.fightcovid.main.MainActivity
 import com.fightcovid.main.view_models.PoiDetailViewModel
+import com.fightcovid.remote.Note
 import com.fightcovid.remote.PoiDetail
+import com.fightcovid.util.DateTimeUtil.convertUtcToLocal
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.fightcorona.R
 import kotlinx.android.synthetic.main.fragment_person_detail.*
+import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
 
@@ -65,6 +68,18 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
                 setupUi(poiDetail)
             }
         })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { result ->
+            result?.let { isLoading ->
+                if (isLoading) {
+                    person_detail_progress_spinner.show()
+                    person_detail_constraint.visibility = View.INVISIBLE
+                } else {
+                    person_detail_progress_spinner.hide()
+                    person_detail_constraint.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 
     private fun setupAddVisitButton() {
@@ -78,9 +93,20 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
     }
 
     private fun setupUi(poiDetail: PoiDetail) {
-        notes_value.text = poiDetail.note
+        notes_value.text = if(poiDetail.note.isBlank()) getString(R.string.no_special_notes) else poiDetail.note
         address_value.text =
             getString(R.string.format_address, poiDetail.address, poiDetail.apartment)
+        last_visited_value.text = checkTime(poiDetail.notes)
+    }
+
+    private fun checkTime(notes: List<Note>): String {
+        val list = mutableListOf<LocalDateTime>()
+        for (item in notes) {
+            list.add(convertUtcToLocal(item.date))
+        }
+        list.sortedDescending()
+        return if (list.isNotEmpty()) list.first().toLocalDate()
+            .toString() else getString(R.string.nobody_visited_person)
     }
 
     private fun fetchPoiDetail() {

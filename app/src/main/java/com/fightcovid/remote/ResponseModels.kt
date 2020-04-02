@@ -33,7 +33,22 @@ data class PoiDetail(
     @SerializedName("note")
     val note: String,
     @SerializedName("creator")
-    val creator: PoiCreator
+    val creator: PoiCreator,
+    @SerializedName("notes")
+    val notes: List<Note>
+)
+
+data class Note(
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("text")
+    val text: String?,
+    @SerializedName("date")
+    val date: String,
+    @SerializedName("creator_id")
+    val creatorId: Int,
+    @SerializedName("poi_id")
+    val poi_id: Int
 )
 
 data class PoiCreator(
