@@ -55,10 +55,12 @@ class PoiRepository(
             return@withContext retrofitUtils.handleResponse(response)
         }
 
-    suspend fun getPoi(latitude: Float, longitude: Float): HashMap<MarkerOptions, MarkerDetails>? =
+    suspend fun getPoi(latitude: Float, longitude: Float, distance: Int?): HashMap<MarkerOptions, MarkerDetails>? =
         withContext(Dispatchers.IO) {
             val response =
-                fightCorona19Service.getPoi(latitude, longitude, tinyDb.getInt(SEARCH_DISTANCE, 2))
+                fightCorona19Service.getPoi(latitude, longitude,
+                    distance ?: tinyDb.getInt(SEARCH_DISTANCE, 2)
+                )
             val result = retrofitUtils.handleResponse(response)
             return@withContext preparePoiData((result))
         }

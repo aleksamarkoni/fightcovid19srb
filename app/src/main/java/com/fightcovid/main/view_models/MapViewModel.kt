@@ -19,10 +19,10 @@ class MapViewModel @Inject constructor(private val poiRepo: PoiRepository) : Vie
     val mapMarkers: LiveData<HashMap<MarkerOptions, MarkerDetails>>
         get() = _mapMarkers
 
-    fun getPoi(latitude: Float, longitude: Float) {
+    fun getPoi(latitude: Float, longitude: Float, distance: Int?) {
         viewModelScope.launch {
             try {
-                _mapMarkers.value = poiRepo.getPoi(latitude, longitude)
+                _mapMarkers.value = poiRepo.getPoi(latitude, longitude, distance)
             } catch (e: IOException) {
                 Timber.e(e)
             } finally {

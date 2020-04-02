@@ -51,6 +51,9 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private var markerHashMap = HashMap<Marker, MarkerDetails>()
+    private lateinit var currentLatLng: LatLng
+
+    private var currentDistance = 100
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -126,9 +129,9 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         val locationResult = mFusedLocationProviderClient.lastLocation
         locationResult.addOnSuccessListener(requireActivity()) {
             if (it != null) {
-                val currentLatLng = LatLng(it.latitude, it.longitude)
+                currentLatLng = LatLng(it.latitude, it.longitude)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
-                viewModel.getPoi(it.latitude.toFloat(), it.longitude.toFloat())
+                viewModel.getPoi(it.latitude.toFloat(), it.longitude.toFloat(), null)
             }
         }
     }
@@ -148,6 +151,29 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
                 setupMarkers(hashMap)
             }
         })
+
+        fetchMorePoi()
+    }
+
+    private fun fetchMorePoi() {
+        var previousZoom = mMap.cameraPosition.zoom
+
+        mMap.setOnCameraIdleListener {
+            if (mMap.cameraPosition.zoom < previousZoom) {
+                viewModel.getPoi(
+                    currentLatLng.latitude.toFloat(),
+                    currentLatLng.longitude.toFloat(),
+                    currentDistance
+                )
+                currentDistance += 100
+            } 
+            previousZoom = mMap.cameraPosition.zoom
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        currentDistance = 50
     }
 
     private fun getMarkerDetail(marker: Marker) {
