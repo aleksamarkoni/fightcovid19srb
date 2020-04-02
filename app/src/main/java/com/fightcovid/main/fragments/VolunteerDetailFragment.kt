@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 import com.fightcovid.di.Injectable
 import com.fightcovid.main.MainActivity
 import com.fightcovid.main.view_models.PoiDetailViewModel
-import com.fightcovid.remote.PoiDetail
+import com.fightcovid.repo.PoiDetailRepo
 import com.google.fightcorona.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragement_volunteer_detail.*
@@ -65,7 +65,7 @@ class VolunteerDetailFragment : Fragment(), Injectable {
         })
     }
 
-    private fun setupCallButton(phone: String) {
+    private fun setupCallButton(phone: String?) {
         call_volunteer_button.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:${phone}")
@@ -73,10 +73,10 @@ class VolunteerDetailFragment : Fragment(), Injectable {
         }
     }
 
-    private fun setupUi(poiDetail: PoiDetail) {
-        name_value.text = poiDetail.creator.name
+    private fun setupUi(poiDetail: PoiDetailRepo) {
+        name_value.text = poiDetail.poiCreator
         phone_value.text = poiDetail.phone
-        loadProfileImage(poiDetail.creator.picture)
+        loadProfileImage(poiDetail.profileImage)
     }
 
     private fun loadProfileImage(picture: String?) {

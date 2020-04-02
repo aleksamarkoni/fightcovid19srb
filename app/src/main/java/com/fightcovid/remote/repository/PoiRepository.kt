@@ -2,6 +2,7 @@ package com.fightcovid.remote.repository
 
 import com.fightcovid.main.PeopleType
 import com.fightcovid.remote.*
+import com.fightcovid.repo.PoiDetailRepo
 import com.fightcovid.util.SEARCH_DISTANCE
 import com.fightcovid.util.TinyDb
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -52,13 +53,19 @@ class PoiRepository(
     suspend fun getPoiDetail(id: Int) =
         withContext(Dispatchers.IO) {
             val response = fightCorona19Service.getPoiDetail(id)
-            return@withContext retrofitUtils.handleResponse(response)
+            val result = retrofitUtils.handleResponse(response)
+            return@withContext PoiDetailRepo.map(result)
         }
 
-    suspend fun getPoi(latitude: Float, longitude: Float, distance: Int?): HashMap<MarkerOptions, MarkerDetails>? =
+    suspend fun getPoi(
+        latitude: Float,
+        longitude: Float,
+        distance: Int?
+    ): HashMap<MarkerOptions, MarkerDetails>? =
         withContext(Dispatchers.IO) {
             val response =
-                fightCorona19Service.getPoi(latitude, longitude,
+                fightCorona19Service.getPoi(
+                    latitude, longitude,
                     distance ?: tinyDb.getInt(SEARCH_DISTANCE, 2)
                 )
             val result = retrofitUtils.handleResponse(response)
@@ -86,7 +93,8 @@ class PoiRepository(
                     )
                     .title(if (item.type == PeopleType.ENDANGERED.name.toLowerCase(Locale.getDefault())) "Endangered person" else "Volunteer")
                     .snippet("Click for more details")
-                    .draggable(true)] = MarkerDetails(item.id, PeopleType.valueOf(item.type.toUpperCase()))
+                    .draggable(true)] =
+                    MarkerDetails(item.id, PeopleType.valueOf(item.type.toUpperCase()))
             }
         }
         return hashMap

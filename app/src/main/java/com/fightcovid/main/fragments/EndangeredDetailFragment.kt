@@ -18,9 +18,7 @@ import androidx.navigation.fragment.navArgs
 import com.fightcovid.di.Injectable
 import com.fightcovid.main.MainActivity
 import com.fightcovid.main.view_models.PoiDetailViewModel
-import com.fightcovid.remote.Note
-import com.fightcovid.remote.PoiDetail
-import com.fightcovid.util.DateTimeUtil.convertUtcToLocal
+import com.fightcovid.repo.PoiDetailRepo
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -31,7 +29,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.fightcorona.R
 import kotlinx.android.synthetic.main.fragment_person_detail.*
-import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
 
@@ -92,21 +89,13 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
         }
     }
 
-    private fun setupUi(poiDetail: PoiDetail) {
-        notes_value.text = if(poiDetail.note.isBlank()) getString(R.string.no_special_notes) else poiDetail.note
+    private fun setupUi(poiDetail: PoiDetailRepo) {
+        notes_value.text = poiDetail.poiNote
         address_value.text =
             getString(R.string.format_address, poiDetail.address, poiDetail.apartment)
-        last_visited_value.text = checkTime(poiDetail.notes)
-    }
-
-    private fun checkTime(notes: List<Note>): String {
-        val list = mutableListOf<LocalDateTime>()
-        for (item in notes) {
-            list.add(convertUtcToLocal(item.date))
-        }
-        list.sortedDescending()
-        return if (list.isNotEmpty()) list.first().toLocalDate()
-            .toString() else getString(R.string.nobody_visited_person)
+        val dateOfLastVisit = poiDetail.lastVisitDate
+        last_visit_comment_value.text = poiDetail.lastVisitFeedback
+        last_visited_value.text = dateOfLastVisit
     }
 
     private fun fetchPoiDetail() {

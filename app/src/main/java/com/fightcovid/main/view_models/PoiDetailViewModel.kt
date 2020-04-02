@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fightcovid.remote.PoiDetail
 import com.fightcovid.remote.repository.PoiRepository
+import com.fightcovid.repo.PoiDetailRepo
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.IOException
@@ -16,14 +16,14 @@ class PoiDetailViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    private val _poiDetail = MutableLiveData<PoiDetail>()
+    private val _poiDetail = MutableLiveData<PoiDetailRepo>()
 
     private val _isLoading = MutableLiveData<Boolean>()
 
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    val poiDetail: LiveData<PoiDetail>
+    val poiDetail: LiveData<PoiDetailRepo>
         get() = _poiDetail
 
     fun getPoiDetail(id: Int) {
