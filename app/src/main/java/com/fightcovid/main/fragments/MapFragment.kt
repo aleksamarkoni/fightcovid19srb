@@ -159,6 +159,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         var previousZoom = mMap.cameraPosition.zoom
 
         mMap.setOnCameraIdleListener {
+            //TODO mMap.cameraPostion.zoom (formula sa interenta kako izracunati km na mapi u odnosu na zoom)
             if (mMap.cameraPosition.zoom < previousZoom) {
                 viewModel.getPoi(
                     currentLatLng.latitude.toFloat(),

@@ -57,10 +57,8 @@ class SigninViewModel @Inject constructor(private val userRepository: UserReposi
 
     private fun checkForTokens() {
         viewModelScope.launch {
-            viewModelScope.launch {
-                val result = userRepository.checkTokens() as UserLoggedIn
-                _userLoggedIn.value = result.isLoggedIn
-            }
+            val result = userRepository.checkTokens() as UserLoggedIn
+            _userLoggedIn.value = result.isLoggedIn
         }
     }
 

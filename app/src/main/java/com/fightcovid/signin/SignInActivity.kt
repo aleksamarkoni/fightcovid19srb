@@ -75,8 +75,7 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
                             this,
                             it.error,
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
                     }
                 }
             }

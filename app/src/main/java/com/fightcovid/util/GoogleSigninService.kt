@@ -12,8 +12,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import timber.log.Timber
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class GoogleSigninService(
     private val firebaseAuth: FirebaseAuth,
@@ -21,21 +19,19 @@ class GoogleSigninService(
     private val context: Context
 ) : AccountService {
 
-    override suspend fun checkForTokens(): AccountResult =
-        suspendCoroutine { continuation ->
-            val token = tinyDb.getString(TOKEN)
-            continuation.resume(
-                if (token.isNullOrBlank()) UserLoggedIn(false) else UserLoggedIn(
-                    true
-                )
-            )
-        }
+    override suspend fun checkForTokens(): AccountResult {
+        val token = tinyDb.getString(TOKEN)
+        return if (token.isNullOrBlank()) UserLoggedIn(false)
+            else UserLoggedIn(true)
+    }
 
     @ExperimentalCoroutinesApi
     override suspend fun logout(): Flow<LogoutResults> = channelFlow {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         val signInTask = GoogleSignIn.getClient(context, gso).signOut()
         signInTask.addOnCompleteListener {
+            //TODO  Mislim da ovo nije dobro, da treba da bude it.isSucesfull, jel moze da bude i error ovde
+            // samo ne znam sta da radimo ako je error.
             if (it.isComplete) {
                 firebaseAuth.signOut()
                 tinyDb.clear()
@@ -44,6 +40,7 @@ class GoogleSigninService(
                 offer(LogoutError("Error signing out"))
             }
         }
+        //TODO add close flow after every offer
         awaitClose {
             Timber.d("Channel close")
         }
@@ -59,6 +56,7 @@ class GoogleSigninService(
 
             taskAuthResult.addOnCompleteListener {
                 if (it.isSuccessful) {
+                    //TODO add more null checks and return error is something here is null
                     val getTokenResultTask = firebaseAuth.currentUser?.getIdToken(false)
                     getTokenResultTask?.addOnCompleteListener { tokenTask ->
                         if (tokenTask.isSuccessful) {
@@ -85,7 +83,7 @@ class GoogleSigninService(
         } catch (e: ApiException) {
             offer(AccountError(e.message))
         }
-
+        //TODO add close flow affter every offer.
         awaitClose {
             Timber.d("Closing channel for my flow")
         }
