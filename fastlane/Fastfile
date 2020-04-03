@@ -43,7 +43,7 @@ platform :android do
            )
 
            firebase_app_distribution(
-               app: "1:113199709004:android:c6cd67a2f19f39928cede9",
+               app: "1:113199709004:android:95290e29bcb49e918cede9",
                groups: "covid",
                release_notes: "Various bug fixes and improvements",
                firebase_cli_token: "1//09u5biC_uUnxrCgYIARAAGAkSNwF-L9IrowP9WaSV5LZk3ax9bO6J5Vdm_cmk7e0bD_OHqnvtmV-V5ZxrHdDbeErjTDaJ-7p3PJU"
