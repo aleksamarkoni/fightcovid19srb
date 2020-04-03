@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Covid Volonter</string>
     <string name="permission_needed">Potrebna dozvola za korišćenje lokacije</string>
     <string name="permission_dialog_desc">Kako biste koristili aplikaciju, molimo vas prihvatite neophodne permisije</string>
     <string name="go_to_settings">Podešavanja</string>

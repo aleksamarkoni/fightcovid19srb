@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.fightcovid.main.fragments.MapFragment"
+        android:name="com.covidvolonter.main.fragments.MapFragment"
         android:label="MapFragment" >
         <action
             android:id="@+id/action_mapFragment_to_chooseAddressFragment"
@@ -29,7 +29,7 @@
     </fragment>
     <dialog
         android:id="@+id/volunteerFragment"
-        android:name="com.fightcovid.main.fragments.AddNewPersonFragment"
+        android:name="com.covidvolonter.main.fragments.AddNewPersonFragment"
         android:label="VolunteerFragment" >
         <argument
             android:name="latitude"
@@ -39,22 +39,22 @@
             app:argType="float" />
         <argument
             android:name="peopleType"
-            app:argType="com.fightcovid.main.PeopleType" />
+            app:argType="com.covidvolonter.main.PeopleType" />
     </dialog>
     <fragment
         android:id="@+id/chooseAddressFragment"
-        android:name="com.fightcovid.main.fragments.ChooseAddressFragment"
+        android:name="com.covidvolonter.main.fragments.ChooseAddressFragment"
         android:label="ChooseAddressFragment" >
         <action
             android:id="@+id/action_chooseAddressFragment_to_volunteerFragment"
             app:destination="@id/volunteerFragment" />
         <argument
             android:name="peopleType"
-            app:argType="com.fightcovid.main.PeopleType" />
+            app:argType="com.covidvolonter.main.PeopleType" />
     </fragment>
     <fragment
         android:id="@+id/endangeredDetailFragment2"
-        android:name="com.fightcovid.main.fragments.EndangeredDetailFragment"
+        android:name="com.covidvolonter.main.fragments.EndangeredDetailFragment"
         android:label="EndangeredDetailFragment" >
         <argument
             android:name="id"
@@ -74,11 +74,11 @@
     </fragment>
     <dialog
         android:id="@+id/allFeedbacksFragment"
-        android:name="com.fightcovid.main.fragments.AllFeedbacksFragment"
+        android:name="com.covidvolonter.main.fragments.AllFeedbacksFragment"
         android:label="AllFeedbacksFragment" />
     <dialog
         android:id="@+id/createVisitFragment"
-        android:name="com.fightcovid.main.fragments.CreateVisitFragment"
+        android:name="com.covidvolonter.main.fragments.CreateVisitFragment"
         android:label="CreateVisitFragment" >
         <argument
             android:name="poiId"
@@ -86,11 +86,11 @@
     </dialog>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.fightcovid.main.fragments.SettingsFragment"
+        android:name="com.covidvolonter.main.fragments.SettingsFragment"
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/volunteerDetailFragment"
-        android:name="com.fightcovid.main.fragments.VolunteerDetailFragment"
+        android:name="com.covidvolonter.main.fragments.VolunteerDetailFragment"
         android:label="VolunteerDetailFragment" >
         <argument
             android:name="id"
@@ -98,6 +98,6 @@
     </fragment>
     <dialog
         android:id="@+id/chooseMapTypeFragment"
-        android:name="com.fightcovid.main.fragments.ChooseMapTypeFragment"
+        android:name="com.covidvolonter.main.fragments.ChooseMapTypeFragment"
         android:label="ChooseMapTypeFragment" />
 </navigation>

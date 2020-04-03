@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:113199709004:android:dbb6aeffb8d3e5dc8cede9",
+        "mobilesdk_app_id": "1:113199709004:android:44effbad650534fe8cede9",
         "android_client_info": {
-          "package_name": "com.fightcovid"
+          "package_name": "com.covidvolonter"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "113199709004-vhij5opg80fcvil6k8hdt92da5s8oat3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.covidvolonter",
+            "certificate_hash": "b787d8e76fe3f35fc2ef53a9fede334031645010"
+          }
+        },
         {
           "client_id": "113199709004-lnm748nm64fmmu7en2trbhavi9iuvqm6.apps.googleusercontent.com",
           "client_type": 3
@@ -37,12 +45,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:113199709004:android:c6cd67a2f19f39928cede9",
+        "mobilesdk_app_id": "1:113199709004:android:95290e29bcb49e918cede9",
         "android_client_info": {
-          "package_name": "com.fightcovid.dev"
+          "package_name": "com.covidvolonter.dev"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "113199709004-9j3erqs93gn6nda962aoa8grrj7fti8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.covidvolonter.dev",
+            "certificate_hash": "b787d8e76fe3f35fc2ef53a9fede334031645010"
+          }
+        },
         {
           "client_id": "113199709004-lnm748nm64fmmu7en2trbhavi9iuvqm6.apps.googleusercontent.com",
           "client_type": 3

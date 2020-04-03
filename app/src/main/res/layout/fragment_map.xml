@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.fightcovid.main.fragments.MapFragment" />
+        tools:context="com.covidvolonter.main.fragments.MapFragment" />
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/choose_map_type_button"

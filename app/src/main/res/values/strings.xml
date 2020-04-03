@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Covid Volunteer</string>
     <string name="permission_needed">Location permission needed</string>
     <string name="permission_dialog_desc">In order to use the app, you must give us location permissions</string>
     <string name="go_to_settings">Settings</string>
