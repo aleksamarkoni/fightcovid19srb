@@ -22,7 +22,7 @@ class GoogleSigninService(
     override suspend fun checkForTokens(): AccountResult {
         val token = tinyDb.getString(TOKEN)
         return if (token.isNullOrBlank()) UserLoggedIn(false)
-            else UserLoggedIn(true)
+        else UserLoggedIn(true)
     }
 
     @ExperimentalCoroutinesApi
@@ -30,17 +30,16 @@ class GoogleSigninService(
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         val signInTask = GoogleSignIn.getClient(context, gso).signOut()
         signInTask.addOnCompleteListener {
-            //TODO  Mislim da ovo nije dobro, da treba da bude it.isSucesfull, jel moze da bude i error ovde
-            // samo ne znam sta da radimo ako je error.
-            if (it.isComplete) {
+            if (it.isSuccessful) {
                 firebaseAuth.signOut()
                 tinyDb.clear()
                 offer(LogoutResult)
+                close()
             } else {
                 offer(LogoutError("Error signing out"))
+                close()
             }
         }
-        //TODO add close flow after every offer
         awaitClose {
             Timber.d("Channel close")
         }
@@ -56,34 +55,45 @@ class GoogleSigninService(
 
             taskAuthResult.addOnCompleteListener {
                 if (it.isSuccessful) {
-                    //TODO add more null checks and return error is something here is null
-                    val getTokenResultTask = firebaseAuth.currentUser?.getIdToken(false)
-                    getTokenResultTask?.addOnCompleteListener { tokenTask ->
-                        if (tokenTask.isSuccessful) {
-                            offer(FirebaseLoginSuccess)
-                            try {
-                                val tokenResult =
-                                    getTokenResultTask.getResult(ApiException::class.java)
-                                tokenResult?.token?.let { token ->
-                                    Timber.d("Stored token is $token")
-                                    tinyDb.putString(TOKEN, token)
-                                    offer(TokenSaved)
+                    firebaseAuth.currentUser?.let { firebaseUser ->
+                        val getTokenResultTask = firebaseUser.getIdToken(false)
+                        getTokenResultTask.addOnCompleteListener { tokenTask ->
+                            if (tokenTask.isSuccessful) {
+                                offer(FirebaseLoginSuccess)
+                                try {
+                                    val tokenResult =
+                                        getTokenResultTask.getResult(ApiException::class.java)
+                                    if (tokenResult != null) {
+                                        tokenResult.token?.let { token ->
+                                            Timber.d("Stored token is $token")
+                                            tinyDb.putString(TOKEN, token)
+                                            offer(TokenSaved)
+                                            close()
+                                        }
+                                    } else {
+                                        offer(AccountError("Token result is null"))
+                                    }
+                                } catch (e: ApiException) {
+                                    offer(AccountError(e.message))
+                                    close()
                                 }
-                            } catch (e: ApiException) {
-                                offer(AccountError(e.message))
+                            } else {
+                                offer(AccountError("Get token result task fail"))
+                                close()
                             }
-                        } else {
-                            offer(AccountError("Get token result task fail"))
                         }
+                    } ?: run {
+                        offer(AccountError("Firebase user is null"))
                     }
                 } else {
                     offer(AccountError(it.exception?.message))
+                    close()
                 }
             }
         } catch (e: ApiException) {
             offer(AccountError(e.message))
+            close()
         }
-        //TODO add close flow affter every offer.
         awaitClose {
             Timber.d("Closing channel for my flow")
         }

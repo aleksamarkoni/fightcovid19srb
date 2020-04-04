@@ -1,7 +1,6 @@
 package com.covidvolonter.di
 
 import android.app.Application
-import android.content.Context
 import com.covidvolonter.remote.FightCorona19RestService
 import com.covidvolonter.remote.GoogleAuthTokenInterceptor
 import com.covidvolonter.remote.RetrofitUtils
@@ -49,8 +48,9 @@ class AppModule {
     @Provides
     internal fun provideUserRepository(
         restService: FightCorona19RestService,
-        accountService: AccountService
-    ): UserRepository = UserRepository(restService, accountService)
+        accountService: AccountService,
+        retrofitUtils: RetrofitUtils
+    ): UserRepository = UserRepository(restService, accountService, retrofitUtils)
 
     @Singleton
     @Provides

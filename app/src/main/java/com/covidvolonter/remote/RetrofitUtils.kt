@@ -14,7 +14,6 @@ class RetrofitUtils @Inject constructor(val gson: Gson) {
             else
                 return responseBody
         } else {
-            //TODO if we have errors work with Marko to standardize the error structure
 //            val errorResponse =
 //                    gson.fromJson(response.errorBody()?.charStream(), ErrorResponse::class.java)
 //            if (errorResponse.serverErrorCode == ServerErrorCodes.BAD_REQUEST) {

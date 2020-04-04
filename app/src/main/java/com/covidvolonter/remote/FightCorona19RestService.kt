@@ -8,12 +8,12 @@ interface FightCorona19RestService {
     @POST("poi")
     suspend fun createPointOfInterest(
         @Body poi: Poi
-    ): Response<Void>
+    ): Response<EmptyResponse>
 
     @POST("visit")
     suspend fun createVisit(
         @Body visit: Visit
-    ): Response<Void>
+    ): Response<EmptyResponse>
 
     @GET("poi/{latitude}/{longitude}")
     suspend fun getPoi(
@@ -28,5 +28,5 @@ interface FightCorona19RestService {
     ): Response<PoiDetail>
 
     @GET("user")
-    suspend fun getUser(): Response<Void>
+    suspend fun getUser(): Response<EmptyResponse>
 }

@@ -65,6 +65,7 @@ class CreateVisitFragment : BottomSheetDialogFragment(), Injectable {
             }
         })
 
+        //TOdo open main map fragment on post visit success
         viewModel.createVisitSuccess.observe(viewLifecycleOwner, Observer { result ->
             result?.let { createVisitSuccess ->
                 if (createVisitSuccess) {

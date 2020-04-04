@@ -49,6 +49,7 @@ class PoiRepository(
     suspend fun createVisit(visitId: Int, feedback: String) = withContext(Dispatchers.IO) {
         val visit = Visit(visitId, feedback)
         val response = fightCorona19Service.createVisit(visit)
+        val result = retrofitUtils.handleResponse(response)
         //TODO add handle respone here, we can use Empty Response instead of Void
         return@withContext response.isSuccessful
     }
@@ -94,7 +95,6 @@ class PoiRepository(
                             BitmapDescriptorFactory.HUE_BLUE
                         )
                     )
-                    //TODO ovo citati is ResourceProvider
                     .title(if (item.type == PeopleType.ENDANGERED.name.toLowerCase(Locale.getDefault())) resourceProvider.getEndangeredPerson() else resourceProvider.getVolunteer())
                     .snippet(resourceProvider.getMoreDetails())
                     .draggable(true)] =
