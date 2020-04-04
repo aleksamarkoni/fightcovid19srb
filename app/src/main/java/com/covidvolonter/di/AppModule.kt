@@ -1,6 +1,7 @@
 package com.covidvolonter.di
 
 import android.app.Application
+import android.content.Context
 import com.covidvolonter.remote.FightCorona19RestService
 import com.covidvolonter.remote.GoogleAuthTokenInterceptor
 import com.covidvolonter.remote.RetrofitUtils
@@ -9,6 +10,8 @@ import com.covidvolonter.remote.repository.UserRepository
 import com.covidvolonter.util.AccountService
 import com.covidvolonter.util.GoogleSigninService
 import com.covidvolonter.util.TinyDb
+import com.covidvolonter.util.resource_proivder.AndroidResourceProvider
+import com.covidvolonter.util.resource_proivder.ResourceProvider
 import com.google.fightcorona.BuildConfig
 import com.google.fightcorona.BuildConfig.BASE_URL
 import com.google.firebase.auth.FirebaseAuth
@@ -32,12 +35,14 @@ class AppModule {
     internal fun providePoiRepository(
         restService: FightCorona19RestService,
         retrofitUtils: RetrofitUtils,
-        tinyDb: TinyDb
+        tinyDb: TinyDb,
+        resourceProvider: ResourceProvider
     ): PoiRepository =
         PoiRepository(
             restService,
             retrofitUtils,
-            tinyDb
+            tinyDb,
+            resourceProvider
         )
 
     @Singleton
@@ -120,4 +125,9 @@ class AppModule {
         tinyDb: TinyDb,
         context: Application
     ): AccountService = GoogleSigninService(firebaseAuth, tinyDb, context)
+
+    @Provides
+    @Singleton
+    fun provideResourceProvider(context: Application): ResourceProvider =
+        AndroidResourceProvider(context)
 }

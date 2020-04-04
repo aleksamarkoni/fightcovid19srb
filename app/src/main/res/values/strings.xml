@@ -60,4 +60,7 @@
     <string name="terrain_map">Terrain</string>
     <string name="nobody_visited_person">Nobody visited this person yet</string>
     <string name="no_special_notes">No special notes</string>
+    <string name="volunteer">Volunteer</string>
+    <string name="endangered_person">Endangered person</string>
+    <string name="more_details">Click for more details</string>
 </resources>

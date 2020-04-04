@@ -5,6 +5,7 @@ import com.covidvolonter.remote.*
 import com.covidvolonter.repo.PoiDetailRepo
 import com.covidvolonter.util.SEARCH_DISTANCE
 import com.covidvolonter.util.TinyDb
+import com.covidvolonter.util.resource_proivder.ResourceProvider
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -16,7 +17,8 @@ import kotlin.collections.HashMap
 class PoiRepository(
     private val fightCorona19Service: FightCorona19RestService,
     private val retrofitUtils: RetrofitUtils,
-    private val tinyDb: TinyDb
+    private val tinyDb: TinyDb,
+    private val resourceProvider: ResourceProvider
 ) {
     suspend fun createPointOfInterest(
         latitude: Float,
@@ -92,9 +94,9 @@ class PoiRepository(
                             BitmapDescriptorFactory.HUE_BLUE
                         )
                     )
-                        //TODO ovo citati is ResourceProvider
-                    .title(if (item.type == PeopleType.ENDANGERED.name.toLowerCase(Locale.getDefault())) "Endangered person" else "Volunteer")
-                    .snippet("Click for more details")
+                    //TODO ovo citati is ResourceProvider
+                    .title(if (item.type == PeopleType.ENDANGERED.name.toLowerCase(Locale.getDefault())) resourceProvider.getEndangeredPerson() else resourceProvider.getVolunteer())
+                    .snippet(resourceProvider.getMoreDetails())
                     .draggable(true)] =
                     MarkerDetails(item.id, PeopleType.valueOf(item.type.toUpperCase()))
             }
