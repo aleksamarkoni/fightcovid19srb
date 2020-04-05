@@ -10,7 +10,7 @@ interface FightCorona19RestService {
         @Body poi: Poi
     ): Response<EmptyResponse>
 
-    @POST("visit")
+    @POST("note")
     suspend fun createVisit(
         @Body visit: Visit
     ): Response<EmptyResponse>
@@ -29,4 +29,7 @@ interface FightCorona19RestService {
 
     @GET("user")
     suspend fun getUser(): Response<EmptyResponse>
+
+    @GET("note")
+    suspend fun getNotesForPoi(@Query("poi_id") poiId: Int): Response<List<Note>>
 }

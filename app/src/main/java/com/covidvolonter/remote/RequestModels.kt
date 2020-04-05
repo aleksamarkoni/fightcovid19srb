@@ -15,5 +15,6 @@ data class Poi(
 
 data class Visit(
     @SerializedName("poi_id") val poiId: Int,
-    @SerializedName("text") val feedback: String
+    @SerializedName("text") val feedback: String,
+    @SerializedName("is_visit") val isVisit: Boolean
 )

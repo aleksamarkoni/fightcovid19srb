@@ -3,6 +3,7 @@ package com.covidvolonter.main.feedback_adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.covidvolonter.repo.NotesRepo
 import com.covidvolonter.util.ViewHolder
 import com.google.fightcorona.R
 
@@ -23,7 +24,7 @@ class FeedbackAdapter() :
         holder.onBindViewHolder(items[position])
     }
 
-    var items: List<FeedbackItemType> = mutableListOf()
+    var items: List<NotesRepo> = mutableListOf()
         set(items) {
             field = items
             notifyDataSetChanged()

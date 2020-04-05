@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,8 @@ import kotlinx.android.synthetic.main.fragment_all_feedbacks.*
 import javax.inject.Inject
 
 class AllFeedbacksFragment : BottomSheetDialogFragment(), Injectable {
+
+    private val args: AllFeedbacksFragmentArgs by navArgs()
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -37,14 +41,25 @@ class AllFeedbacksFragment : BottomSheetDialogFragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(FeedbacksViewModel::class.java)
         setupRecyclerView()
+        viewModel.fetchNotes(args.poiId)
+
+        viewModel.notesList.observe(viewLifecycleOwner, Observer { result ->
+            result?.let {
+                adapter.items = it
+            }
+        })
     }
 
     private fun setupRecyclerView() {
         adapter = FeedbackAdapter()
         recycler_view_fragment_all_feedbacks.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        recycler_view_fragment_all_feedbacks.addItemDecoration(DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL))
+        recycler_view_fragment_all_feedbacks.addItemDecoration(
+            DividerItemDecoration(
+                requireActivity(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
         recycler_view_fragment_all_feedbacks.adapter = adapter
-        adapter.items = viewModel.fetchDummyFeedbacks()
     }
 }

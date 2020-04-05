@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.facebook.FacebookSdk.getApplicationContext
 import com.covidvolonter.di.Injectable
 import com.covidvolonter.main.view_models.CreateVisitViewModel
+import com.facebook.FacebookSdk.getApplicationContext
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.fightcorona.R
 import kotlinx.android.synthetic.main.fragment_create_visit.*
@@ -65,7 +66,6 @@ class CreateVisitFragment : BottomSheetDialogFragment(), Injectable {
             }
         })
 
-        //TOdo open main map fragment on post visit success
         viewModel.createVisitSuccess.observe(viewLifecycleOwner, Observer { result ->
             result?.let { createVisitSuccess ->
                 if (createVisitSuccess) {
@@ -76,6 +76,7 @@ class CreateVisitFragment : BottomSheetDialogFragment(), Injectable {
                     )
                         .show()
                     dismiss()
+                    findNavController().navigate(R.id.mapFragment)
                 } else {
                     Toast.makeText(
                         getApplicationContext(),

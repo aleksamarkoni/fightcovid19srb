@@ -45,10 +45,12 @@ data class Note(
     val text: String?,
     @SerializedName("date")
     val date: String,
-    @SerializedName("creator_id")
-    val creatorId: Int,
+    @SerializedName("creator")
+    val creatorId: PoiCreator,
     @SerializedName("poi_id")
-    val poi_id: Int
+    val poi_id: Int,
+    @SerializedName("is_visit")
+    val isVisit: Boolean
 )
 
 data class PoiCreator(

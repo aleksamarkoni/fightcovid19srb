@@ -1,10 +1,11 @@
 package com.covidvolonter
 
 import android.app.Application
+import com.covidvolonter.di.AppInjector
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
-import com.covidvolonter.di.AppInjector
 import com.google.fightcorona.BuildConfig
+import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -25,6 +26,7 @@ class CoronaApplication : Application(), HasAndroidInjector {
             "https://65d217755bd74bc9aa7181f6709e4fd4@sentry.io/5174833",
             AndroidSentryClientFactory(this)
         )
+        AndroidThreeTen.init(this)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }

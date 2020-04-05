@@ -2,6 +2,7 @@ package com.covidvolonter.remote.repository
 
 import com.covidvolonter.main.PeopleType
 import com.covidvolonter.remote.*
+import com.covidvolonter.repo.NotesRepo
 import com.covidvolonter.repo.PoiDetailRepo
 import com.covidvolonter.util.SEARCH_DISTANCE
 import com.covidvolonter.util.TinyDb
@@ -47,7 +48,7 @@ class PoiRepository(
     }
 
     suspend fun createVisit(visitId: Int, feedback: String) = withContext(Dispatchers.IO) {
-        val visit = Visit(visitId, feedback)
+        val visit = Visit(visitId, feedback, true)
         val response = fightCorona19Service.createVisit(visit)
         val result = retrofitUtils.handleResponse(response)
         //TODO add handle respone here, we can use Empty Response instead of Void
@@ -59,6 +60,17 @@ class PoiRepository(
             val response = fightCorona19Service.getPoiDetail(id)
             val result = retrofitUtils.handleResponse(response)
             return@withContext PoiDetailRepo.map(result)
+        }
+
+    suspend fun getNotesForPoi(poidId: Int) =
+        withContext(Dispatchers.IO) {
+            val response = fightCorona19Service.getNotesForPoi(poidId)
+            val result = retrofitUtils.handleResponse(response)
+            val listOfNotesRepo = mutableListOf<NotesRepo>()
+            for (item in result) {
+                listOfNotesRepo.add(NotesRepo.map(item))
+            }
+            return@withContext listOfNotesRepo
         }
 
     suspend fun getPoi(

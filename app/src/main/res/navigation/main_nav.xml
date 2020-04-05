@@ -75,7 +75,11 @@
     <dialog
         android:id="@+id/allFeedbacksFragment"
         android:name="com.covidvolonter.main.fragments.AllFeedbacksFragment"
-        android:label="AllFeedbacksFragment" />
+        android:label="AllFeedbacksFragment" >
+        <argument
+            android:name="poiId"
+            app:argType="integer" />
+    </dialog>
     <dialog
         android:id="@+id/createVisitFragment"
         android:name="com.covidvolonter.main.fragments.CreateVisitFragment"

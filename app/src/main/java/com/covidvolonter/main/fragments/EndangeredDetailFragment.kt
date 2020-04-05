@@ -104,7 +104,11 @@ class EndangeredDetailFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private fun setupViewAllFeedbacksButton() {
         view_all_feedbacks.setOnClickListener {
-            findNavController().navigate(EndangeredDetailFragmentDirections.actionEndangeredDetailFragment2ToAllFeedbacksFragment())
+            findNavController().navigate(
+                EndangeredDetailFragmentDirections.actionEndangeredDetailFragment2ToAllFeedbacksFragment(
+                    args.id
+                )
+            )
         }
     }
 
