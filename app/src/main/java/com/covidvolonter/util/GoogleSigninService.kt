@@ -19,10 +19,42 @@ class GoogleSigninService(
     private val context: Context
 ) : AccountService {
 
-    override suspend fun checkForTokens(): AccountResult {
-        val token = tinyDb.getString(TOKEN)
-        return if (token.isNullOrBlank()) UserLoggedIn(false)
-        else UserLoggedIn(true)
+    @ExperimentalCoroutinesApi
+    override suspend fun checkForTokens(): Flow<TokenResult> = channelFlow {
+        firebaseAuth.currentUser?.let { firebaseUser ->
+            val getTokenResultTask = firebaseUser.getIdToken(false)
+            getTokenResultTask.addOnCompleteListener { tokenTask ->
+                if (tokenTask.isSuccessful) {
+                    try {
+                        val tokenResult =
+                            getTokenResultTask.getResult(ApiException::class.java)
+                        if (tokenResult != null) {
+                            tokenResult.token?.let { token ->
+                                Timber.d("Stored token is $token")
+                                tinyDb.putString(TOKEN, token)
+                                offer(TokenValid)
+                                close()
+                            }
+                        } else {
+                            offer(TokenExpired)
+                            close()
+                        }
+                    } catch (e: ApiException) {
+                        offer(TokenExpired)
+                        close()
+                    }
+                } else {
+                    offer(TokenExpired)
+                    close()
+                }
+            }
+        } ?: run {
+            offer(TokenExpired)
+            close()
+        }
+        awaitClose {
+            Timber.d("Channel close")
+        }
     }
 
     @ExperimentalCoroutinesApi

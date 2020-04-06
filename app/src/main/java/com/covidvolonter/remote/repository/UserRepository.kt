@@ -6,6 +6,7 @@ import com.covidvolonter.remote.RetrofitUtils
 import com.covidvolonter.util.AccountResult
 import com.covidvolonter.util.AccountService
 import com.covidvolonter.util.LogoutResults
+import com.covidvolonter.util.TokenResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -29,7 +30,7 @@ class UserRepository(
             return@withContext accountService.login(intent)
         }
 
-    suspend fun checkTokens(): AccountResult =
+    suspend fun checkTokens(): Flow<TokenResult> =
         withContext(Dispatchers.IO) {
             return@withContext accountService.checkForTokens()
         }

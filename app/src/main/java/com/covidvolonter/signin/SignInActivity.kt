@@ -10,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.covidvolonter.main.MainActivity
-import com.covidvolonter.util.AccountError
-import com.covidvolonter.util.LoginSuccess
-import com.covidvolonter.util.TokenSaved
+import com.covidvolonter.util.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.fightcorona.R
@@ -82,11 +80,10 @@ class SignInActivity : AppCompatActivity(), HasAndroidInjector {
         })
 
         viewModel.userLoggedIn.observe(this, Observer { result ->
-            result?.let { userLoggedIn ->
-                if (userLoggedIn) {
-                    startMainActivity()
-                } else {
-                    showSigninButton()
+            result?.let { tokenStatus ->
+                when (tokenStatus) {
+                    TokenValid -> startMainActivity()
+                    TokenExpired -> showSigninButton()
                 }
             }
         })

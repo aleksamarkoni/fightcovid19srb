@@ -58,7 +58,7 @@ data class PoiDetailRepo(
                 if (currentTime.isAfter(localDateTime)) localDateTime = currentTime
             }
 
-            return localDateTime.toLocalDate().toString()
+            return localDateTime.toString()
         }
     }
 }

@@ -9,7 +9,7 @@ import com.covidvolonter.remote.repository.UserRepository
 import com.covidvolonter.util.AccountError
 import com.covidvolonter.util.AccountResult
 import com.covidvolonter.util.LoginSuccess
-import com.covidvolonter.util.UserLoggedIn
+import com.covidvolonter.util.TokenResult
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -24,14 +24,14 @@ class SigninViewModel @Inject constructor(private val userRepository: UserReposi
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    private val _userLoggedIn = MutableLiveData<Boolean>()
+    private val _userLoggedIn = MutableLiveData<TokenResult>()
 
     private val _loginFlow = MutableLiveData<AccountResult>()
 
     val loginFlow: LiveData<AccountResult>
         get() = _loginFlow
 
-    val userLoggedIn: LiveData<Boolean>
+    val userLoggedIn: LiveData<TokenResult>
         get() = _userLoggedIn
 
     init {
@@ -57,8 +57,10 @@ class SigninViewModel @Inject constructor(private val userRepository: UserReposi
 
     private fun checkForTokens() {
         viewModelScope.launch {
-            val result = userRepository.checkTokens() as UserLoggedIn
-            _userLoggedIn.value = result.isLoggedIn
+            val result = userRepository.checkTokens()
+            result.collect {
+                _userLoggedIn.value = it
+            }
         }
     }
 
