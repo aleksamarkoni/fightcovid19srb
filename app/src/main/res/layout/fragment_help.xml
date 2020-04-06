@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/legend_title"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/map_marker_legend"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/volunteer_marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/legend_title"
+        app:srcCompat="@drawable/ic_place_blue_24dp" />
+
+    <TextView
+        style="@style/DescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/volunteer_marker"
+        app:layout_constraintBottom_toBottomOf="@id/volunteer_marker"
+        app:layout_constraintStart_toEndOf="@id/volunteer_marker"
+        app:layout_constraintTop_toTopOf="@id/volunteer_marker" />
+
+    <ImageView
+        android:id="@+id/green_endangered_marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/volunteer_marker"
+        app:srcCompat="@drawable/ic_place_green_24dp" />
+
+    <TextView
+        style="@style/DescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/last_visit_was_today"
+        app:layout_constraintBottom_toBottomOf="@id/green_endangered_marker"
+        app:layout_constraintStart_toEndOf="@id/green_endangered_marker"
+        app:layout_constraintTop_toTopOf="@id/green_endangered_marker" />
+
+    <ImageView
+        android:id="@+id/yellow_endangered_marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/green_endangered_marker"
+        app:srcCompat="@drawable/ic_place_yellow_24dp" />
+
+    <TextView
+        style="@style/DescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/last_visit_was_in_the_last_3_days"
+        app:layout_constraintBottom_toBottomOf="@id/yellow_endangered_marker"
+        app:layout_constraintStart_toEndOf="@id/yellow_endangered_marker"
+        app:layout_constraintTop_toTopOf="@id/yellow_endangered_marker" />
+
+    <ImageView
+        android:id="@+id/red_endangered_marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/yellow_endangered_marker"
+        app:srcCompat="@drawable/ic_place_red_24dp" />
+
+    <TextView
+        style="@style/DescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/last_visit_was_more_then_7_days_ago"
+        app:layout_constraintBottom_toBottomOf="@id/red_endangered_marker"
+        app:layout_constraintStart_toEndOf="@id/red_endangered_marker"
+        app:layout_constraintTop_toTopOf="@id/red_endangered_marker" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

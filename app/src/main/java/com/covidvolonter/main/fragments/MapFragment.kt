@@ -167,7 +167,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
                     currentDistance
                 )
                 currentDistance += 100
-            } 
+            }
             previousZoom = mMap.cameraPosition.zoom
         }
     }
@@ -274,8 +274,16 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
                 openSettings()
                 true
             }
+            R.id.help -> {
+                openHelp()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun openHelp() {
+        findNavController().navigate(MapFragmentDirections.actionMapFragmentToHelpFragment())
     }
 
     private fun openSettings() {

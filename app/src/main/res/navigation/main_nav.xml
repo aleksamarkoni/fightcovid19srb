@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_mapFragment_to_chooseMapTypeFragment"
             app:destination="@id/chooseMapTypeFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
     </fragment>
     <dialog
         android:id="@+id/volunteerFragment"
@@ -104,4 +107,8 @@
         android:id="@+id/chooseMapTypeFragment"
         android:name="com.covidvolonter.main.fragments.ChooseMapTypeFragment"
         android:label="ChooseMapTypeFragment" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.covidvolonter.main.fragments.HelpFragment"
+        android:label="HelpFragment" />
 </navigation>

@@ -2,6 +2,7 @@ package com.covidvolonter.remote.repository
 
 import com.covidvolonter.main.PeopleType
 import com.covidvolonter.remote.*
+import com.covidvolonter.repo.NoNotes
 import com.covidvolonter.repo.NotesRepo
 import com.covidvolonter.repo.PoiDetailRepo
 import com.covidvolonter.util.DateTimeUtil
@@ -70,9 +71,13 @@ class PoiRepository(
         withContext(Dispatchers.IO) {
             val response = fightCorona19Service.getNotesForPoi(poidId)
             val result = retrofitUtils.handleResponse(response)
-            val listOfNotesRepo = mutableListOf<NotesRepo>()
-            for (item in result) {
-                listOfNotesRepo.add(NotesRepo.map(item))
+            val listOfNotesRepo = mutableListOf<com.covidvolonter.repo.NoteType>()
+            if (result.isEmpty()) {
+                listOfNotesRepo.add(NoNotes())
+            } else {
+                for (item in result) {
+                    listOfNotesRepo.add(NotesRepo.map(item))
+                }
             }
             return@withContext listOfNotesRepo
         }
