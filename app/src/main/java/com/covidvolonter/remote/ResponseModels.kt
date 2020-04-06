@@ -10,7 +10,9 @@ data class MapMarker(
     @SerializedName("latitude")
     val latitude: Float,
     @SerializedName("longitude")
-    val longitude: Float
+    val longitude: Float,
+    @SerializedName("last_visit")
+    val lastVisit: String?
 )
 
 data class PoiDetail(
