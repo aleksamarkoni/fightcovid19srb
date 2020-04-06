@@ -2,7 +2,9 @@ package com.covidvolonter.repo
 
 import com.covidvolonter.remote.Note
 import com.covidvolonter.remote.PoiDetail
+import com.covidvolonter.util.DATE_TIME_FORMATTER
 import com.covidvolonter.util.DateTimeUtil.convertUtcToLocal
+import org.threeten.bp.format.DateTimeFormatter
 
 data class PoiDetailRepo(
     val address: String,
@@ -58,7 +60,7 @@ data class PoiDetailRepo(
                 if (currentTime.isAfter(localDateTime)) localDateTime = currentTime
             }
 
-            return localDateTime.toString()
+            return localDateTime.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER))
         }
     }
 }

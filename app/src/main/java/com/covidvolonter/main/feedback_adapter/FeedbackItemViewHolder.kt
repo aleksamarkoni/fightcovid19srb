@@ -18,7 +18,7 @@ class FeedbackItemViewHolder(itemView: View) : ViewHolder(itemView) {
         loadProfileImage(model.imageUrl)
         itemView.feedback_creator_name.text = model.name
         itemView.feedback_description_text.text = model.note
-        itemView.feedback_date_text.text = model.date.toString()
+        itemView.feedback_date_text.text = model.date
     }
 
     private fun loadProfileImage(imageUrl: String?) {
