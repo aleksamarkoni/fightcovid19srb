@@ -137,7 +137,7 @@ class PoiRepository(
                         BitmapDescriptorFactory.HUE_RED
                     )
                 }
-                ChronoUnit.DAYS.between(localDateTime, localDateTimeNow) in 1..3L -> {
+                ChronoUnit.DAYS.between(localDateTime, localDateTimeNow) in 1..6L -> {
                     return BitmapDescriptorFactory.defaultMarker(
                         BitmapDescriptorFactory.HUE_YELLOW
                     )

@@ -86,10 +86,12 @@ class AddNewPersonFragment : BottomSheetDialogFragment(), Injectable {
                 getString(R.string.add_endangered)
             add_volunteer_desc.text =
                 getString(R.string.to_add_new_endangered)
+            phone_text_layout.visibility = View.GONE
         } else {
             add_volunteer_title.text = getString(R.string.add_volunteer)
             add_volunteer_desc.text =
                 getString(R.string.to_add_new_volunteer)
+            email_text_layout.visibility = View.GONE
         }
     }
 
