@@ -40,7 +40,6 @@ class ChooseAddressFragment : Fragment(), Injectable, OnMapReadyCallback,
         return inflater.inflate(R.layout.fragment_choose_address, container, false)
     }
 
-    //Todo make map cover whole screen and make text transparent on the top
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupToolbar()

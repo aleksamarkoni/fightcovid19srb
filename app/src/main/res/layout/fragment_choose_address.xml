@@ -5,12 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <fragment
+        android:id="@+id/choose_address_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context="com.covidvolonter.main.fragments.ChooseAddressFragment" />
+
     <TextView
         android:id="@+id/fragment_title"
         style="@style/TitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:background="@drawable/rounded_purple_image_view"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:text="@string/choose_address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,20 +36,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_purple_image_view"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:text="@string/drop_the_pin_on_your_address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_title" />
-
-    <fragment
-        android:id="@+id/choose_address_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_description"
-        tools:context="com.covidvolonter.main.fragments.ChooseAddressFragment" />
 
     <ImageView
         android:id="@+id/location_pin"

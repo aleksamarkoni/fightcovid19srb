@@ -56,7 +56,6 @@ class PoiRepository(
         val visit = Visit(visitId, feedback, true)
         val response = fightCorona19Service.createVisit(visit)
         val result = retrofitUtils.handleResponse(response)
-        //TODO add handle respone here, we can use Empty Response instead of Void
         return@withContext response.isSuccessful
     }
 
