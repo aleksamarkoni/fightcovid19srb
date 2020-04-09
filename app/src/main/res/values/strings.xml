@@ -30,7 +30,7 @@
     <string name="floor">Floor</string>
     <string name="notes">Notes:</string>
     <string name="address_label">Address:</string>
-    <string name="format_address">%1s/%1s</string>
+    <string name="format_address" translatable="false">%1s/%1s</string>
     <string name="visit_details">Visit details</string>
     <string name="add_visit">Add visit</string>
     <string name="add_visit_for_this_person">Add visit for this person</string>
@@ -39,7 +39,7 @@
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
     <string name="name">Name:</string>
-    <string name="email_label">Email:</string>
+    <string name="email_label" translatable="false">Email:</string>
     <string name="select_max_distance_to_search_for_endangered_person">Select max distance to search for endangered person:</string>
     <string name="selected_distance">Selected distance: %1$dkm</string>
     <string name="volunteer_details">Volunteer details</string>
@@ -47,25 +47,25 @@
     <string name="please_contact_volunteer_only_if_s_absolutely_necessary">Please contact volunteer only if it\'s absolutely necessary!</string>
     <string name="phone_label">Phone:</string>
 
-    <string name="facebook_app_id">586359555297489</string>
-    <string name="fb_login_protocol_scheme">fb586359555297489</string>
-    <string name="welcome_to_nfight_covid_19">Fight Covid 19</string>
+    <string name="facebook_app_id" translatable="false">586359555297489</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb586359555297489</string>
+    <string name="welcome_to_nfight_covid_19" translatable="false">Fight Covid 19</string>
     <string name="welcome_to">Welcome to</string>
     <string name="create_visit">Create visit</string>
     <string name="visit_created">Visit created</string>
     <string name="error_creating_visit">Error creating visit</string>
     <string name="map_type">Map type</string>
-    <string name="default_map">Default</string>
-    <string name="satellite_map">"Satellite "</string>
-    <string name="terrain_map">Terrain</string>
+    <string name="default_map" translatable="false">Default</string>
+    <string name="satellite_map" translatable="false">"Satellite "</string>
+    <string name="terrain_map" translatable="false">Terrain</string>
     <string name="nobody_visited_person">Nobody visited this person yet</string>
     <string name="no_special_notes">No special notes</string>
     <string name="volunteer">Volunteer</string>
     <string name="endangered_person">Endangered person</string>
     <string name="more_details">Click for more details</string>
     <string name="help">Help</string>
-    <string name="map_marker_legend">Map marker legend:</string>
-    <string name="volunteer_marker">Volunteer marker</string>
+    <string name="map_marker_legend" translatable="false">Map marker legend:</string>
+    <string name="volunteer_marker" translatable="false">Volunteer marker</string>
     <string name="last_visit_was_today">Last visit was today</string>
     <string name="last_visit_was_in_the_last_3_days">Last visit was in the last 3 days</string>
     <string name="no_feedback_for_this_person">No feedback for this person</string>

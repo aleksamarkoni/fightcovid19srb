@@ -78,7 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="32dp"
-        android:text="1234567891"
         app:layout_constraintBottom_toBottomOf="@id/phone_label"
         app:layout_constraintStart_toEndOf="@id/phone_label"
         tools:text="+381 64 27 15 393" />
@@ -96,43 +95,9 @@
         app:layout_constraintTop_toTopOf="@id/phone_label"
         app:srcCompat="@drawable/ic_phone_purple_24dp" />
 
-    <TextView
-        android:id="@+id/email_label"
-        style="@style/NormalText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/email_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone_label" />
-
-    <TextView
-        android:id="@+id/email_value_text"
-        style="@style/DescriptionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="32dp"
-        android:text="blabla@mailinator.com"
-        app:layout_constraintBottom_toBottomOf="@id/email_label"
-        app:layout_constraintStart_toEndOf="@id/email_label" />
-
     <include
         android:id="@+id/loading_fragment_volunteer_detail"
         layout="@layout/loading_screen_item"
         android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/email_volunteer_button"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="64dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="@id/email_value_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/email_value_text"
-        app:srcCompat="@drawable/ic_email_black_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

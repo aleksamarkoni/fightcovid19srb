@@ -53,11 +53,12 @@
             <TextView
                 android:id="@+id/last_visited_value"
                 style="@style/DescriptionText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                app:layout_constraintBottom_toBottomOf="@id/last_visited_label"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/last_visited_label"
+                app:layout_constraintTop_toTopOf="@id/last_visited_label"
                 tools:text="24th March 2020" />
 
             <TextView
@@ -108,11 +109,13 @@
             <TextView
                 android:id="@+id/last_visit_comment_label"
                 style="@style/NormalText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/volunteer_who_visited_this_person_last_wrote"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/required_label"
                 tools:text="Volunteer who visited this person last wrote:" />
