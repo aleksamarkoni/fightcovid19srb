@@ -28,12 +28,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/fight_covid_19"
+        android:id="@+id/volontero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="@string/welcome_to_nfight_covid_19"
+        android:text="@string/welcome_to_volontero"
         android:textColor="@android:color/white"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"

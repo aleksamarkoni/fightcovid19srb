@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.covidvolonter.main.fragments.ChooseAddressFragment" />
+        tools:context="com.volontero.main.fragments.ChooseAddressFragment" />
 
     <TextView
         android:id="@+id/fragment_title"

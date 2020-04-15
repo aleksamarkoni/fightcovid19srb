@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Covid Volunteer</string>
+    <string name="app_name">Volontero</string>
     <string name="permission_needed">Location permission needed</string>
     <string name="permission_dialog_desc">In order to use the app, you must give us location permissions</string>
     <string name="go_to_settings">Settings</string>
@@ -49,7 +49,7 @@
 
     <string name="facebook_app_id" translatable="false">586359555297489</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb586359555297489</string>
-    <string name="welcome_to_nfight_covid_19" translatable="false">Fight Covid 19</string>
+    <string name="welcome_to_volontero" translatable="false">Volontero</string>
     <string name="welcome_to">Welcome to</string>
     <string name="create_visit">Create visit</string>
     <string name="visit_created">Visit created</string>

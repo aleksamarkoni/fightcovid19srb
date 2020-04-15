@@ -1,5 +1,3 @@
-package com.google.fightcorona
-
 import org.junit.Test
 
 import org.junit.Assert.*

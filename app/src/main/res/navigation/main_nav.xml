@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.covidvolonter.main.fragments.MapFragment"
+        android:name="com.volontero.main.fragments.MapFragment"
         android:label="MapFragment" >
         <action
             android:id="@+id/action_mapFragment_to_chooseAddressFragment"
@@ -32,7 +32,7 @@
     </fragment>
     <dialog
         android:id="@+id/volunteerFragment"
-        android:name="com.covidvolonter.main.fragments.AddNewPersonFragment"
+        android:name="com.volontero.main.fragments.AddNewPersonFragment"
         android:label="VolunteerFragment" >
         <argument
             android:name="latitude"
@@ -42,22 +42,22 @@
             app:argType="float" />
         <argument
             android:name="peopleType"
-            app:argType="com.covidvolonter.main.PeopleType" />
+            app:argType="com.volontero.main.PeopleType" />
     </dialog>
     <fragment
         android:id="@+id/chooseAddressFragment"
-        android:name="com.covidvolonter.main.fragments.ChooseAddressFragment"
+        android:name="com.volontero.main.fragments.ChooseAddressFragment"
         android:label="ChooseAddressFragment" >
         <action
             android:id="@+id/action_chooseAddressFragment_to_volunteerFragment"
             app:destination="@id/volunteerFragment" />
         <argument
             android:name="peopleType"
-            app:argType="com.covidvolonter.main.PeopleType" />
+            app:argType="com.volontero.main.PeopleType" />
     </fragment>
     <fragment
         android:id="@+id/endangeredDetailFragment2"
-        android:name="com.covidvolonter.main.fragments.EndangeredDetailFragment"
+        android:name="com.volontero.main.fragments.EndangeredDetailFragment"
         android:label="EndangeredDetailFragment" >
         <argument
             android:name="id"
@@ -77,7 +77,7 @@
     </fragment>
     <dialog
         android:id="@+id/allFeedbacksFragment"
-        android:name="com.covidvolonter.main.fragments.AllFeedbacksFragment"
+        android:name="com.volontero.main.fragments.AllFeedbacksFragment"
         android:label="AllFeedbacksFragment" >
         <argument
             android:name="poiId"
@@ -85,7 +85,7 @@
     </dialog>
     <dialog
         android:id="@+id/createVisitFragment"
-        android:name="com.covidvolonter.main.fragments.CreateVisitFragment"
+        android:name="com.volontero.main.fragments.CreateVisitFragment"
         android:label="CreateVisitFragment" >
         <argument
             android:name="poiId"
@@ -93,11 +93,11 @@
     </dialog>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.covidvolonter.main.fragments.SettingsFragment"
+        android:name="com.volontero.main.fragments.SettingsFragment"
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/volunteerDetailFragment"
-        android:name="com.covidvolonter.main.fragments.VolunteerDetailFragment"
+        android:name="com.volontero.main.fragments.VolunteerDetailFragment"
         android:label="VolunteerDetailFragment" >
         <argument
             android:name="id"
@@ -105,10 +105,10 @@
     </fragment>
     <dialog
         android:id="@+id/chooseMapTypeFragment"
-        android:name="com.covidvolonter.main.fragments.ChooseMapTypeFragment"
+        android:name="com.volontero.main.fragments.ChooseMapTypeFragment"
         android:label="ChooseMapTypeFragment" />
     <fragment
         android:id="@+id/helpFragment"
-        android:name="com.covidvolonter.main.fragments.HelpFragment"
+        android:name="com.volontero.main.fragments.HelpFragment"
         android:label="HelpFragment" />
 </navigation>

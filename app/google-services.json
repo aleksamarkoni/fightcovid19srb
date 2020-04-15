@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "113199709004",
-    "firebase_url": "https://fightcorona-77030.firebaseio.com",
-    "project_id": "fightcorona-77030",
-    "storage_bucket": "fightcorona-77030.appspot.com"
+    "project_number": "677814086248",
+    "firebase_url": "https://volontero.firebaseio.com",
+    "project_id": "volontero",
+    "storage_bucket": "volontero.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:113199709004:android:44effbad650534fe8cede9",
+        "mobilesdk_app_id": "1:677814086248:android:32cf73140175ef959ba9dd",
         "android_client_info": {
-          "package_name": "com.covidvolonter"
+          "package_name": "com.volontero"
         }
       },
       "oauth_client": [
         {
-          "client_id": "113199709004-vhij5opg80fcvil6k8hdt92da5s8oat3.apps.googleusercontent.com",
+          "client_id": "677814086248-0fjf2b15ms82r2mio1t93me3bs17r46r.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.covidvolonter",
+            "package_name": "com.volontero",
             "certificate_hash": "b787d8e76fe3f35fc2ef53a9fede334031645010"
           }
         },
         {
-          "client_id": "113199709004-lnm748nm64fmmu7en2trbhavi9iuvqm6.apps.googleusercontent.com",
+          "client_id": "677814086248-9n2jp6fegl1jttbnl7987kkfu8mlvl81.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCkCztdsHpe6zAuUJ2ZvWRygllsMEp4QWo"
+          "current_key": "AIzaSyCuskAAU4wfLjqBKJPmnl7FMw0CO76YdSQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "113199709004-lnm748nm64fmmu7en2trbhavi9iuvqm6.apps.googleusercontent.com",
+              "client_id": "677814086248-9n2jp6fegl1jttbnl7987kkfu8mlvl81.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -45,35 +45,35 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:113199709004:android:95290e29bcb49e918cede9",
+        "mobilesdk_app_id": "1:677814086248:android:e647420f3ed1a1f99ba9dd",
         "android_client_info": {
-          "package_name": "com.covidvolonter.dev"
+          "package_name": "com.volontero.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "113199709004-9j3erqs93gn6nda962aoa8grrj7fti8v.apps.googleusercontent.com",
+          "client_id": "677814086248-0vtoaiokj14l02akpb5si8b3073rms30.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.covidvolonter.dev",
+            "package_name": "com.volontero.dev",
             "certificate_hash": "b787d8e76fe3f35fc2ef53a9fede334031645010"
           }
         },
         {
-          "client_id": "113199709004-lnm748nm64fmmu7en2trbhavi9iuvqm6.apps.googleusercontent.com",
+          "client_id": "677814086248-9n2jp6fegl1jttbnl7987kkfu8mlvl81.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCkCztdsHpe6zAuUJ2ZvWRygllsMEp4QWo"
+          "current_key": "AIzaSyCuskAAU4wfLjqBKJPmnl7FMw0CO76YdSQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "113199709004-lnm748nm64fmmu7en2trbhavi9iuvqm6.apps.googleusercontent.com",
+              "client_id": "677814086248-9n2jp6fegl1jttbnl7987kkfu8mlvl81.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

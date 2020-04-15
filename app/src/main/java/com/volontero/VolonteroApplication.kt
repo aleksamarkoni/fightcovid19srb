@@ -1,0 +1,40 @@
+package com.volontero
+
+import android.app.Application
+import com.volontero.di.AppInjector
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
+import com.jakewharton.threetenabp.AndroidThreeTen
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import io.sentry.Sentry
+import io.sentry.android.AndroidSentryClientFactory
+import timber.log.Timber
+import javax.inject.Inject
+
+class VolonteroApplication : Application(), HasAndroidInjector {
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+
+    override fun onCreate() {
+        super.onCreate()
+        AppInjector.init(this)
+        Sentry.init(
+            "https://65d217755bd74bc9aa7181f6709e4fd4@sentry.io/5174833",
+            AndroidSentryClientFactory(this)
+        )
+        AndroidThreeTen.init(this)
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
+        FacebookSdk.fullyInitialize()
+        AppEventsLogger.activateApp(this)
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return dispatchingAndroidInjector
+    }
+}

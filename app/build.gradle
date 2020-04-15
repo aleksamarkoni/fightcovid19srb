@@ -22,11 +22,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.covidvolonter"
+        applicationId "com.volontero"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 3
-        versionName "0.0.3"
+        versionCode 1
+        versionName "0.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

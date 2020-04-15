@@ -43,9 +43,9 @@ platform :android do
            )
 
            firebase_app_distribution(
-               app: "1:113199709004:android:95290e29bcb49e918cede9",
-               groups: "covid",
-               release_notes: "Implement visit feedback screen. Implement help screen with marker legend descriptions. Various bug fixes and improvements",
+               app: "1:677814086248:android:e647420f3ed1a1f99ba9dd",
+               groups: "volontero",
+               release_notes: "Various bug fixes and improvements",
                firebase_cli_token: "1//09u5biC_uUnxrCgYIARAAGAkSNwF-L9IrowP9WaSV5LZk3ax9bO6J5Vdm_cmk7e0bD_OHqnvtmV-V5ZxrHdDbeErjTDaJ-7p3PJU"
            )
      end
